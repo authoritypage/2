@@ -5,32 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>InsightHub Metrics | Explore Civic Data</title>
-    <meta name="description" content="Explore key civic data metrics and trends. A clean, interactive data dashboard showcasing responsive design and engaging visualizations.">
-    <meta name="keywords" content="data, metrics, dashboard, civic, government, open data, visualization, HTML, CSS, JavaScript, responsive">
+    <title>Civic Data Portal | Official Public Data & Information</title>
+    <meta name="description" content="Access official public data, tools, and resources from the U.S. government. Discover, explore, and utilize data for research and development.">
+    <meta name="keywords" content="data.gov, open data, government data, public data, datasets, civic tech, API, U.S. government">
     <meta name="author" content="Your Name/Organization">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/insighthub-metrics/">
-    <meta property="og:title" content="InsightHub Metrics | Explore Civic Data">
-    <meta property="og:description" content="Explore key civic data metrics and trends. A clean, interactive data dashboard showcasing responsive design and engaging visualizations.">
-    <meta property="og:image" content="https://yourusername.github.io/insighthub-metrics/assets/images/og-image-metrics.png">
+    <meta property="og:url" content="https://yourusername.github.io/civic-data-portal/">
+    <meta property="og:title" content="Civic Data Portal | Official Public Data & Information">
+    <meta property="og:description" content="Access official public data, tools, and resources from the U.S. government. Discover, explore, and utilize data for research and development.">
+    <meta property="og:image" content="https://yourusername.github.io/civic-data-portal/assets/images/og-image-civic.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourusername.github.io/insighthub-metrics/">
-    <meta property="twitter:title" content="InsightHub Metrics | Explore Civic Data">
-    <meta property="twitter:description" content="Explore key civic data metrics and trends. A clean, interactive data dashboard showcasing responsive design and engaging visualizations.">
-    <meta property="twitter:image" content="https://yourusername.github.io/insighthub-metrics/assets/images/twitter-image-metrics.png">
+    <meta property="twitter:url" content="https://yourusername.github.io/civic-data-portal/">
+    <meta property="twitter:title" content="Civic Data Portal | Official Public Data & Information">
+    <meta property="twitter:description" content="Access official public data, tools and resources from the U.S. government. Discover, explore, and utilize data for research and development.">
+    <meta property="twitter:image" content="https://yourusername.github.io/civic-data-portal/assets/images/twitter-image-civic.png">
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
 
-    <!-- Google Fonts: Inter for overall legibility, suited for data display -->
+    <!-- Google Fonts: Inter as a strong, clean alternative to Public Sans for broad accessibility -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
@@ -38,7 +38,9 @@
 <body>
     <header class="site-header">
         <div class="container header-container">
-            <h1 class="logo">InsightHub Metrics</h1>
+            <h1 class="logo">
+                <a href="/">CivicData.gov</a>
+            </h1>
             <nav class="main-nav">
                 <button class="nav-toggle" aria-label="Toggle navigation">
                     <span class="bar"></span>
@@ -46,195 +48,201 @@
                     <span class="bar"></span>
                 </button>
                 <ul class="nav-list">
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#data-topics">Data Topics</a></li>
-                    <li><a href="#how-it-works">How It Works</a></li>
-                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#find-data">Find Data</a></li>
+                    <li><a href="#topics">Topics</a></li>
+                    <li><a href="#tools-resources">Tools & Resources</a></li>
+                    <li><a href="#about">About</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <div class="header-actions">
-                <button class="action-btn primary-btn">Search Data
-                    <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                </button>
+            <div class="header-utility">
+                <button class="utility-link" aria-label="Sign In">Sign In</button>
             </div>
         </div>
     </header>
 
-    <!-- Hero Section - Dedicated to the Gradient Bar-Line Chart -->
-    <section id="hero-chart-section" class="hero-chart-section">
-        <div class="container chart-container">
-            <div class="chart-header">
-                <h2>Annual Data Accessibility Growth</h2>
-                <div class="chart-controls">
-                    <span class="label">Metrics:</span>
-                    <div class="dropdown-wrapper">
-                        <select id="metric-select">
-                            <option value="data-growth">New Datasets</option>
-                            <option value="user-engagement">User Engagement</option>
-                            <option value="api-calls">API Calls</option>
-                        </select>
-                        <span class="dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                    </div>
+    <!-- Hero Search Section -->
+    <section id="hero-search" class="hero-search-section">
+        <div class="container hero-content">
+            <h2 class="hero-title">Access Public U.S. Data</h2>
+            <p class="hero-subtitle">The home of the U.S. Government’s open data. Here you will find data, tools, and resources to conduct research, develop web and mobile applications, design data visualizations, and more.</p>
+
+            <form class="search-form" id="mainSearchForm">
+                <div class="search-input-group">
+                    <input type="search" id="mainSearch" placeholder="Enter keywords..." aria-label="Search datasets and resources">
+                    <button type="submit" class="search-button">
+                        <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <span>Search</span>
+                    </button>
                 </div>
-            </div>
-            <!-- SVG will be dynamically generated here by JavaScript -->
-            <div id="data-visualization" class="data-visualization">
-                <svg class="chart-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet"></svg>
-            </div>
-            <div class="chart-footer">
-                <p>Data reflects the aggregation of public dataset releases and platform interactions per fiscal year.</p>
-                <a href="#data-topics" class="learn-more">Explore All Metrics <svg class="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-            </div>
+            </form>
+            <a href="#browse-all" class="explore-link">Browse all <span id="dataset-count">280,000</span> datasets <svg class="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
         </div>
     </section>
 
     <main>
-        <!-- Overview & Key Metrics Section -->
-        <section id="overview" class="overview-section section-padding">
+        <!-- Data Highlights / Metrics Section (Optional: smaller cards if needed) -->
+        <section id="highlights" class="highlights-section section-padding">
             <div class="container">
-                <h3 class="section-heading">Overview & Key Metrics</h3>
-                <div class="metric-grid">
-                    <div class="metric-card">
-                        <div class="icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20v-2M18 20v-4M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3M6 2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"></path></svg>
-                        </div>
-                        <h4>2,345,678</h4>
-                        <p>Total Datasets Available</p>
+                <h3 class="section-heading">Data Highlights</h3>
+                <div class="highlight-grid">
+                    <div class="highlight-card">
+                        <p class="highlight-number">280,000+</p>
+                        <p class="highlight-label">Datasets</p>
                     </div>
-                    <div class="metric-card">
-                        <div class="icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-                        </div>
-                        <h4>+15.2%</h4>
-                        <p>Annual Growth Rate</p>
+                    <div class="highlight-card">
+                        <p class="highlight-number">10,000+</p>
+                        <p class="highlight-label">Data Types</p>
                     </div>
-                    <div class="metric-card">
-                        <div class="icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
-                        </div>
-                        <h4>789 M+</h4>
-                        <p>API Calls Last Quarter</p>
-                    </div>
-                    <div class="metric-card">
-                        <div class="icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M10 9a3 3 0 1 0 0 6M14 9a3 3 0 1 0 0 6M22 12A10 10 0 0 0 12 2 10 10 0 0 0 2 12"></path></svg>
-                        </div>
-                        <h4>45</h4>
-                        <p>Key Data Topics</p>
+                    <div class="highlight-card">
+                        <p class="highlight-number">8,000+</p>
+                        <p class="highlight-label">API Resources</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Data Topics Section -->
-        <section id="data-topics" class="data-topics-section section-padding">
+        <!-- Topics Section -->
+        <section id="topics" class="topics-section section-padding">
             <div class="container">
-                <h3 class="section-heading">Browse Data by Topic</h3>
+                <h3 class="section-heading">Explore by Topic</h3>
                 <div class="topic-grid">
                     <a href="#" class="topic-card">
-                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-4 9H2"></path></svg>
-                        <h5>Economy & Finance</h5>
-                        <p>Key indicators, markets, and fiscal trends.</p>
+                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5C17 19 22 17.2 22 12c0-5-5-5.5-10-8.5C7 5 2 6 2 12c0 5 5 5 10 9.5z"></path></svg>
+                        <h4>Agriculture</h4>
                     </a>
                     <a href="#" class="topic-card">
-                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
-                        <h5>Environment & Energy</h5>
-                        <p>Climate data, resources, and sustainability.</p>
+                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 20.72c2.4-.41 4.7-.95 7-1.57a3.92 3.92 0 0 0 3.47-4.46l-2-7a2.53 2.53 0 0 0-2.03-1.6L9.89 3.1A3.49 3.49 0 0 0 6.64 4.14L3.06 9.69a2.5 2.5 0 0 0 .28 3.52l4.8 4.3c.75.68 1.95.81 3.25.43.9-.26 1.7-.68 2.5-.68s1.6.42 2.5.68a.5.5 0 0 0 .6-.83l-1.34-1.95M9 13.5l1.5-1.5"></path></svg>
+                        <h4>Climate</h4>
                     </a>
                     <a href="#" class="topic-card">
-                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                        <h5>Population & Demographics</h5>
-                        <p>Census, population changes, and social metrics.</p>
+                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.82 4.09l4.58 2.65L20 8l-.9 5.25c-.2.2-1.55.57-2.6.49-1.04-.08-2.6-.74-2.73-1.89l-2.45-3.34A4.18 4.18 0 0 0 10.82 4.09zM4.17 19.34l.11-.13a10.93 10.93 0 0 0-1.74-.95c-1.25-.7-2-1.28-2-2l2.09-2.58A5.94 5.94 0 0 0 3 13.9a3.78 3.78 0 0 0 .8 1.48L7 20c-1.33.52-2.14 1.34-3.1 1.76-1 .4-1.97.02-2.12-.46-.08-.26-.14-.49-.1-.66-.02-.12.02-.13.06-.18zM19.1 17.58l.18.23a1.45 1.45 0 0 0-.16 2.12l-1.88 2.05-4.47-5.06a.7.7 0 0 0-.58-.16l-3.35.48c-.68.08-1.4.15-2.02-.12-.66-.3-1.12-.88-1.37-1.6L5 13a4 4 0 0 1 .46-.73c.48-.6.54-1.14.3-1.6-.2-.36-.45-.63-.8-.9l-.02-.02L.89 9.9c-1-.22-1.22-.64-1-1 .3-.38.74-.6 1.4-.7s1.3.17 2 .42l1.98.78c.32.13.62.24.9.31L13.88 3c.08-.22.42-.58.85-.8L15 1.5l1.62.91a1.2 1.2 0 0 1 .84.3L19 3l1.83 2.15c.6.7.78 1.46.52 2.22-.2.6-.75.76-1.5.86-.77.1-1.63.15-2.58-.2z"></path></svg>
+                        <h4>Education</h4>
                     </a>
                     <a href="#" class="topic-card">
-                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
-                        <h5>Education & Skills</h5>
-                        <p>Learning outcomes, access, and workforce data.</p>
+                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21.5a1.5 1.5 0 0 0-1.5 1.5c0 .83.67 1.5 1.5 1.5s1.5-.67 1.5-1.5c0-.83-.67-1.5-1.5-1.5z"></path><path d="M22.518 7.35l-3.21-3.21a2 2 0 0 0-2.828 0L9.04 11.666a2 2 0 0 0-.022 2.812l3.411 3.411L18.498 13.9a2 2 0 0 0-.001-2.827l-2.056-2.055L19 7l1.793-1.793a.5.5 0 0 1 .707.707l-1.414 1.414c.264.484.457 1.01.573 1.564l2.193 2.193c.39.39.39 1.023 0 1.413L15.347 21c-.39.39-1.023.39-1.413 0l-3.252-3.252c-.6-.6-.948-1.41-.95-2.26v-.01l.004-3.876.883-.882a.5.5 0 0 1 .707.707L10.875 14a.5.5 0 0 0-.146.354v.791c0 1.096.9 2 2 2h.262l5.772-5.772.353-.353a.5.5 0 0 0 0-.707l-1.414-1.414.707-.707z"></path><path d="M7 6H4a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h3a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zM4.5 12c-1.38 0-2.5 1.12-2.5 2.5s1.12 2.5 2.5 2.5h1.79c-.06-1.53.86-2.83 2-3.5"></path></svg>
+                        <h4>Health</h4>
                     </a>
                     <a href="#" class="topic-card">
-                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM15 9h-6M12 6v6"></path></svg>
-                        <h5>Health & Wellness</h5>
-                        <p>Public health, disease trends, and healthcare access.</p>
+                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17.5c-.88-.42-1.39-1.05-1.5-2.01l-1.41-3.66c-.32-.87-1-1.32-1.66-1.33h-2.17M20 7.5c.88.42 1.39 1.05 1.5 2.01l1.41 3.66c.32.87 1 1.32 1.66 1.33h2.17M14 10.5h-4l-3 9L9 3l4 7z"></path><path d="M12 2.5L2 12 12 21.5 22 12 12 2.5z"></path></svg>
+                        <h4>Ecosystems</h4>
                     </a>
                     <a href="#" class="topic-card">
-                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
-                        <h5>Geography & Mapping</h5>
-                        <p>Spatial data, maps, and geographical insights.</p>
+                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="10" height="7" rx="1" ry="1"></rect><rect x="12" y="3" width="10" height="7" rx="1" ry="1"></rect><rect x="2" y="11" width="10" height="10" rx="1" ry="1"></rect><rect x="12" y="11" width="10" height="10" rx="1" ry="1"></rect></svg>
+                        <h4>Public Safety</h4>
                     </a>
                 </div>
                 <div class="load-more-container">
-                    <button class="btn primary-btn">View All Topics</button>
+                    <a href="#topics" class="link-btn">View All Topics →</a>
                 </div>
             </div>
         </section>
 
-        <!-- How It Works / Data Use Cases Section -->
-        <section id="how-it-works" class="how-it-works-section section-padding">
+        <!-- What's New & Upcoming Section -->
+        <section id="whats-new" class="whats-new-section section-padding">
             <div class="container">
-                <h3 class="section-heading">How Data Fuels Innovation</h3>
-                <div class="info-blocks-grid">
-                    <div class="info-block">
-                        <div class="info-icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.5l-4.5 4.5h9L12 17.5zm0-15v14"></path><polyline points="21 7.5 12 2.5 3 7.5"></polyline><path d="M21 7.5v9L12 21.5 3 16.5v-9"></path></svg>
-                        </div>
-                        <h4>Access Data via API</h4>
-                        <p>Seamlessly integrate public datasets into your applications and services using our robust API endpoints.</p>
-                        <a href="#">Learn about APIs →</a>
+                <h3 class="section-heading">What's New & Upcoming</h3>
+                <div class="news-grid">
+                    <div class="news-card">
+                        <span class="news-date">October 26, 2023</span>
+                        <h5>New Policy on Open Data Standards Released</h5>
+                        <p>Guidelines for federal agencies to ensure data consistency and accessibility...</p>
+                        <a href="#">Read More →</a>
                     </div>
-                    <div class="info-block">
-                        <div class="info-icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2c0-4.418 3.582-8 8-8s8 3.582 8 8"></path><path d="M18 10a5 5 0 1 0-5-5"></path><path d="M10 2a5 5 0 1 0 0 10"></path></svg>
-                        </div>
-                        <h4>Download & Analyze</h4>
-                        <p>Directly download datasets in various formats for local analysis, research, and policy development.</p>
-                        <a href="#">View Download Formats →</a>
+                    <div class="news-card">
+                        <span class="news-date">October 19, 2023</span>
+                        <h5>Hackathon Winners Announced: Smart City Solutions</h5>
+                        <p>Celebrating innovative projects built using public infrastructure data...</p>
+                        <a href="#">Read More →</a>
                     </div>
-                    <div class="info-block">
-                        <div class="info-icon-wrap">
-                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zm-5.719 3L12 14.719 8.719 12M12 14.719V11"></path><circle cx="7" cy="7" r="2"></circle><circle cx="17" cy="7" r="2"></circle></svg>
-                        </div>
-                        <h4>Visualize & Interpret</h4>
-                        <p>Utilize integrated tools or external platforms to visualize complex datasets for clearer insights.</p>
-                        <a href="#">Explore Visualization Tools →</a>
+                    <div class="news-card">
+                        <span class="news-date">October 12, 2023</span>
+                        <h5>Interactive Map of Renewable Energy Sources Launched</h5>
+                        <p>Visualizing green energy initiatives across states for better public insight...</p>
+                        <a href="#">Read More →</a>
                     </div>
+                </div>
+                <div class="load-more-container">
+                    <a href="#" class="link-btn">View All News →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools & Resources Section -->
+        <section id="tools-resources" class="tools-resources-section section-padding">
+            <div class="container">
+                <h3 class="section-heading">Tools & Resources</h3>
+                <div class="tools-grid">
+                    <a href="#" class="tool-card">
+                        <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                        <h4>Developer API Docs</h4>
+                        <p>Access our comprehensive API documentation for seamless integration.</p>
+                    </a>
+                    <a href="#" class="tool-card">
+                        <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a4.99 4.99 0 0 0 2 2h16c.4-.4.8-1 1-2.5m-3.5-3.5L14 10.5 9 17 5 13"></path></svg>
+                        <h4>Data Use Cases</h4>
+                        <p>Explore real-world examples of how our data is being used for impact.</p>
+                    </a>
+                    <a href="#" class="tool-card">
+                        <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>
+                        <h4>Open Data Community</h4>
+                        <p>Connect with other data enthusiasts and contribute to open data initiatives.</p>
+                    </a>
+                </div>
+                <div class="load-more-container">
+                    <a href="#" class="link-btn">View All Tools & Resources →</a>
                 </div>
             </div>
         </section>
     </main>
 
     <footer class="site-footer">
-        <div class="container footer-content">
-            <div class="footer-col">
-                <h5>InsightHub Metrics</h5>
-                <p>Empowering informed decisions through accessible public data.</p>
+        <div class="container footer-primary">
+            <div class="footer-section footer-about">
+                <h5>About CivicData.gov</h5>
+                <p>Your authoritative source for open data from the U.S. government. Empowering public insight and innovation.</p>
             </div>
-            <div class="footer-col">
-                <h5>Quick Links</h5>
+            <div class="footer-section">
+                <h5>Explore Data</h5>
                 <ul>
-                    <li><a href="#overview">Overview</a></li>
-                    <li><a href="#data-topics">Data Topics</a></li>
-                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#find-data">Find Datasets</a></li>
+                    <li><a href="#topics">Data Topics</a></li>
+                    <li><a href="#">Popular Searches</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h5>Connect</h5>
+            <div class="footer-section">
+                <h5>Resources</h5>
                 <ul>
-                    <li><a href="#">Feedback</a></li>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">GitHub</a></li>
+                    <li><a href="#tools-resources">Tools & Developers</a></li>
+                    <li><a href="#">Publications</a></li>
+                    <li><a href="#">Open API</a></li>
                 </ul>
             </div>
-            <div class="footer-col">
-                <h5>Legal</h5>
+            <div class="footer-section">
+                <h5>Help & Feedback</h5>
+                <ul>
+                    <li><a href="#">FAQs</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Submit Feedback</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h5>Policies</h5>
                 <ul>
                     <li><a href="#">Privacy Policy</a></li>
                     <li><a href="#">Terms of Service</a></li>
+                    <li><a href="#">Accessibility Statement</a></li>
                 </ul>
             </div>
         </div>
-        <div class="container copyright">
-            <p>© <span id="currentYear"></span> InsightHub Metrics. All rights reserved.</p>
+        <div class="container footer-secondary">
+            <p>A service of the U.S. General Services Administration</p>
+            <p>© <span id="currentYear"></span> U.S. Government. All rights reserved.</p>
+            <div class="social-links">
+                <a href="#" aria-label="Link to Twitter">Twitter</a>
+                <a href="#" aria-label="Link to GitHub">GitHub</a>
+                <a href="#" aria-label="Link to YouTube">YouTube</a>
+            </div>
         </div>
     </footer>
 
