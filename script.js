@@ -1,96 +1,261 @@
-# Axiom DevConsole | AI Command Dashboard UI
+//
+// InsightHub Metrics - Script.js
+//
+// Author: Your Name/Organization
+// Version: 1.0.0
+//
+// Contains:
+// - Dynamic data visualization (Bar-Line Chart with gradient)
+// - Chart interactivity (tooltip)
+// - Responsive chart resizing
+// - Mobile navigation toggle
+// - Smooth scrolling for anchor links
+// - Dynamic year in footer
+//
 
-## Precision in Interface: Replicating a Modern Dev Console
+document.addEventListener('DOMContentLoaded', () => {
 
-"Axiom DevConsole" is a meticulous front-end replication of a sophisticated AI development interface, heavily inspired by the visual language of Google AI Studio. This project demonstrates advanced CSS layout techniques (Grid and Flexbox), component-based styling, and subtle JavaScript interactivity to create a functional and visually stunning dark-themed web application. Optimized for seamless deployment on GitHub Pages, it serves as an exemplar of modern UI/UX architecture.
+    // --- 1. Dynamic Year in Footer ---
+    const currentYearSpan = document.getElementById('currentYear');
+    if (currentYearSpan) {
+        currentYearSpan.textContent = new Date().getFullYear();
+    }
 
-### Project Type
+    // --- 2. Mobile Navigation Toggle ---
+    const navToggle = document.querySelector('.nav-toggle');
+    const mainNav = document.querySelector('.main-nav');
+    const navList = document.querySelector('.nav-list');
+    const body = document.body;
 
-Developer Console / Web Application UI / Dashboard Interface
+    if (navToggle && mainNav && navList) {
+        navToggle.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            body.classList.toggle('no-scroll'); // Prevents background scroll
+        });
 
-### Design Philosophy
+        // Close nav when a link is clicked
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                if (mainNav.classList.contains('active')) {
+                    mainNav.classList.remove('active');
+                    body.classList.remove('no-scroll');
+                }
+            });
+        });
+    }
 
-*   **Dark Theme Aesthetic**: Built on a refined palette of dark grays, muted texts, and a crisp blue accent, designed for reduced eye strain during prolonged use.
-*   **Structured Layout (Grid & Flexbox)**: A rigid yet flexible three-column layout (left nav, main content, right settings panel) provides clear content segmentation.
-*   **Atomic Component Design**: Individual UI elements like buttons, input fields, sliders, and toggles are styled consistently and with attention to pixel-perfect detail, ensuring scalability and maintainability.
-*   **Intuitive Typography**: Utilizes the 'Inter' typeface with varying weights to establish clear visual hierarchy and readability for code, labels, and general text.
-*   **Functional Icons & Interaction**: Inline SVG icons for scalability and visual clarity. Interactions (hovers, active states, toggle animations) are subtle, responsive, and provide clear user feedback.
-*   **Mobile Adaptability**: Designed with responsiveness in mind, allowing the sidebars to collapse or become overlays on smaller screens, mirroring common app patterns.
+    // --- 3. Smooth Scrolling for Anchor Links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
 
-### Features
+            const targetId = this.getAttribute('href');
+            const targetElement = document.querySelector(targetId);
 
-*   **Semantic HTML5 Structure**: Clean and logical structure for accessibility and maintainability.
-*   **Three-Column Layout**: Dedicated navigation, primary workspace (chat/code), and settings panel.
-*   **Styled Navigation**: Interactive sidebar navigation with active states and integrated SVG icons.
-*   **Dynamic Chat/Code Area**: A `contenteditable` `pre` tag simulates a text editor or prompt input.
-*   **Responsive Header Actions**: A row of functional icon buttons mirroring common developer tool controls.
-*   **Interactive Settings Panel**:
-    *   Dropdown menu styling.
-    *   Dynamic temperature slider with live value display.
-    *   Custom-styled toggle switch for "Thinking mode."
-    *   Collapsible "Tools" section using CSS transitions and JavaScript.
-    *   Adjustable small toggle switches within collapsible sections.
-*   **Optimized for GitHub Pages**: Includes `.nojekyll` for direct static site hosting.
+            if (targetElement) {
+                const headerOffset = document.querySelector('.site-header').offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
 
-### Technologies Used
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
 
-*   **HTML5**: The backbone structure of the UI.
-*   **CSS3**: Extensive custom styling, including CSS Grid, Flexbox, variables, and transitions to achieve the precise look and feel.
-*   **JavaScript (Vanilla JS)**: Implements UI interactivity for navigation, sliders, toggles, and collapsing sections.
-*   **Google Fonts**: `Inter` for its modern and versatile appearance.
-*   **Inline SVG Icons**: For sharp, scalable, and customizable iconography.
 
-### Getting Started
+    // --- 4. Data Visualization Logic ---
+    const svg = document.querySelector('#data-visualization .chart-svg');
+    const tooltip = document.createElement('div');
+    tooltip.classList.add('tooltip');
+    document.body.appendChild(tooltip);
 
-To get a local copy up and running for preview or development:
+    // Mock Data
+    const mockData = [
+        { year: 2018, datasets: 15000, engagement: 0.3, apiCalls: 50 },
+        { year: 2019, datasets: 22000, engagement: 0.5, apiCalls: 75 },
+        { year: 2020, datasets: 30000, engagement: 0.7, apiCalls: 100 },
+        { year: 2021, datasets: 38000, engagement: 0.9, apiCalls: 130 },
+        { year: 2022, datasets: 45000, engagement: 1.1, apiCalls: 160 },
+        { year: 2023, datasets: 52000, engagement: 1.3, apiCalls: 200 }
+    ];
 
-#### Prerequisites
+    let currentMetric = 'datasets'; // Default metric
 
-You only need a modern web browser. Git is required for pushing to GitHub.
+    const metricSelect = document.getElementById('metric-select');
+    if (metricSelect) {
+        metricSelect.addEventListener('change', (event) => {
+            currentMetric = event.target.value;
+            drawChart(); // Redraw chart with new metric
+        });
+    }
 
-#### Installation
+    function drawChart() {
+        // Clear previous chart elements
+        svg.innerHTML = '';
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://your-github-username/axiom-devconsole.git
-    ```
-2.  **Navigate to the project directory:**
-    ```bash
-    cd axiom-devconsole
-    ```
-3.  **Place Icons (Optional, but recommended for full visual fidelity):**
-    If you wish to host your own icons instead of the inline SVGs (for larger icon sets, etc.), place them in `assets/icons/`. The current setup uses inline SVGs directly in `index.html` to simplify deployment for quick preview, but in a real project you'd manage SVG assets.
-    (For this exercise, the SVG path data is included directly in the HTML to show the intended icon style.)
-4.  **Open `index.html`:**
-    Simply open the `index.html` file in your web browser.
+        const svgWidth = svg.viewBox.baseVal.width;
+        const svgHeight = svg.viewBox.baseVal.height;
 
-### Deployment (GitHub Pages)
+        const margin = { top: 40, right: 40, bottom: 60, left: 60 }; // Increased margin for labels
+        const chartWidth = svgWidth - margin.left - margin.right;
+        const chartHeight = svgHeight - margin.top - margin.bottom;
 
-This project is configured for easy deployment to GitHub Pages:
+        // Create main chart group
+        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+        g.setAttribute('transform', `translate(${margin.left}, ${margin.top})`);
+        svg.appendChild(g);
 
-1.  **Create a new GitHub repository** (e.g., `axiom-devconsole`).
-2.  **Push your code to the new repository.**
-3.  **Go to your repository settings on GitHub.com.**
-4.  **Under the "Pages" section, select the `main` branch as your source** and save.
-5.  **Ensure a `.nojekyll` file exists in your root directory.** This prevents GitHub Pages from processing your site with Jekyll, ensuring pure HTML/CSS/JS deployment.
-6.  Your site will be live at `https://your-github-username.github.io/axiom-devconsole/`.
+        // Scales
+        const xValues = mockData.map(d => d.year);
+        const yValues = mockData.map(d => d[currentMetric]);
 
-### Customization
+        const xScale = (value) => {
+            const minYear = Math.min(...xValues);
+            const maxYear = Math.max(...xValues);
+            const range = maxYear - minYear;
+            return ((value - minYear) / range) * chartWidth;
+        };
 
-*   **Colors**: Modify the CSS variables under `:root` in `style.css` to change the theme's palette.
-*   **Layout**: Adjust `grid-template-columns` in `.app-container` within `style.css` for different sidebar widths.
-*   **Components**: Tweak padding, margins, border-radii, and hover effects for any UI component directly in `style.css`.
-*   **Interactivity**: Extend `script.js` to add more complex behaviors, dynamic content loading, or form submissions.
-*   **Icons**: Replace the inline SVGs with links to external SVG files, or integrate a library like Feather Icons or Material Symbols if you need more variety, remembering to match the flat/line art style.
+        const yScale = (value) => {
+            const minVal = 0; // Always start Y axis from 0
+            const maxVal = Math.max(...yValues) * 1.1; // Add 10% padding above max value
+            const range = maxVal - minVal;
+            return chartHeight - ((value - minVal) / range) * chartHeight; // Invert Y-axis for SVG
+        };
 
-### Contribution
+        // Add SVG linear gradient definition
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        const linearGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
+        linearGradient.setAttribute('id', 'barGradient');
+        linearGradient.setAttribute('x1', '0%');
+        linearGradient.setAttribute('y1', '0%');
+        linearGradient.setAttribute('x2', '0%');
+        linearGradient.setAttribute('y2', '100%');
 
-This project is a demonstration of UI design and development. Feel free to fork, adapt, and build upon it. If you find improvements or issues, opening a pull request or issue is welcome.
+        const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop1.setAttribute('offset', '0%');
+        stop1.setAttribute('stop-color', 'var(--chart-gradient-start)');
+        linearGradient.appendChild(stop1);
 
-### License
+        const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
+        stop2.setAttribute('offset', '100%');
+        stop2.setAttribute('stop-color', 'var(--chart-gradient-end)');
+        linearGradient.appendChild(stop2);
 
-Distributed under the MIT License. See `LICENSE` for more information.
+        defs.appendChild(linearGradient);
+        svg.appendChild(defs);
 
----
+        // Bars
+        const barWidth = chartWidth / (mockData.length * 1.5); // Adjust spacing
+        mockData.forEach((d, i) => {
+            const xPos = xScale(d.year) - (barWidth / 2); // Center bars on year
+            const barHeight = chartHeight - yScale(d[currentMetric]);
 
-**Architected with precision and a vision for the digital future by [Your Name/Organization].**
+            const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+            bar.setAttribute('x', xPos);
+            bar.setAttribute('y', yScale(d[currentMetric]));
+            bar.setAttribute('width', barWidth);
+            bar.setAttribute('height', barHeight);
+            bar.setAttribute('fill', 'url(#barGradient)');
+            bar.classList.add('bar'); // Add class for CSS styling
+
+            // Add data attributes for tooltip
+            bar.dataset.year = d.year;
+            bar.dataset.value = d[currentMetric].toLocaleString();
+            g.appendChild(bar);
+
+            // Bar hover for tooltip
+            bar.addEventListener('mouseenter', (event) => {
+                tooltip.style.opacity = 1;
+                tooltip.textContent = `Year: ${d.year}, Value: ${d[currentMetric].toLocaleString()}`;
+                positionTooltip(event);
+            });
+            bar.addEventListener('mousemove', (event) => {
+                positionTooltip(event);
+            });
+            bar.addEventListener('mouseleave', () => {
+                tooltip.style.opacity = 0;
+            });
+        });
+
+        // Line (Connecting dots representing another metric or primary metric)
+        const linePathData = mockData.map(d => {
+            const x = xScale(d.year);
+            const y = yScale(d[currentMetric] * 0.9 + 500); // Slight offset or different metric
+            return `${x},${y}`;
+        }).join(' ');
+
+        const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
+        line.setAttribute('points', linePathData);
+        line.setAttribute('class', 'line-path'); // Add class for CSS styling
+        g.appendChild(line);
+
+        // Axes Labels
+        // X-axis (Years)
+        xValues.forEach(year => {
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', xScale(year));
+            text.setAttribute('y', chartHeight + margin.bottom / 2);
+            text.textContent = year;
+            text.classList.add('axis-label');
+            g.appendChild(text);
+        });
+
+        // Y-axis grid lines and labels (Simplified, few major grid lines)
+        const yAxisSteps = 4; // Number of horizontal grid lines
+        for (let i = 0; i <= yAxisSteps; i++) {
+            const y = chartHeight - (chartHeight / yAxisSteps) * i;
+            const value = (Math.max(...yValues) * 1.1 / yAxisSteps) * i;
+
+            // Grid line
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', 0);
+            line.setAttribute('y1', y);
+            line.setAttribute('x2', chartWidth);
+            line.setAttribute('y2', y);
+            line.classList.add('grid-line');
+            g.appendChild(line);
+
+            // Label
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', -margin.left / 2 + 5); // Position label left of chart area
+            text.setAttribute('y', y);
+            text.setAttribute('text-anchor', 'start');
+            text.setAttribute('font-size', '12px');
+            text.setAttribute('fill', 'rgba(255, 255, 255, 0.6)');
+            text.textContent = `${value.toFixed(0)}`; // Display whole numbers
+            g.appendChild(text);
+        }
+
+        // --- Tooltip Positioning ---
+        function positionTooltip(event) {
+            // Get position relative to the main viewport
+            const chartRect = svg.getBoundingClientRect();
+            const mouseX = event.clientX;
+            const mouseY = event.clientY;
+
+            // Offset tooltip to not cover the mouse pointer
+            let tooltipX = mouseX + 15;
+            let tooltipY = mouseY + 15;
+
+            // Ensure tooltip stays within viewport
+            if (tooltipX + tooltip.offsetWidth > window.innerWidth) {
+                tooltipX = mouseX - tooltip.offsetWidth - 15;
+            }
+            if (tooltipY + tooltip.offsetHeight > window.innerHeight) {
+                tooltipY = mouseY - tooltip.offsetHeight - 15;
+            }
+
+            tooltip.style.left = `${tooltipX}px`;
+            tooltip.style.top = `${tooltipY}px`;
+        }
+    }
+
+    // Initial draw and redraw on window resize
+    drawChart();
+    window.addEventListener('resize', drawChart);
+
+});
