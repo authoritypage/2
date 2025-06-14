@@ -1,1 +1,751 @@
+/*
+    -----------------------------------------------------
+    Axiom DevConsole UI - Dashboard Theme
+    Author: Your Name/Organization
+    Version: 1.0.0
+    -----------------------------------------------------
+    Design Philosophy:
+    - Dark & Professional: Deep background, legible text, minimal distractions.
+    - Flat UI with Subtle Depth: Flat elements, hints of borders/shadows for separation.
+    - Grid & Flexbox Power: Structured layout, responsive by design.
+    - Functional Typography: Clear hierarchy using 'Inter' font with varied weights.
+    - Consistent Component Styling: Reusable styles for buttons, inputs, sliders, toggles.
+    - Blue Accent: Primary interactive color for focus and active states.
+*/
 
+/* --- 0. Global Variables & Base Styles --- */
+:root {
+    /* Colors derived from screenshot */
+    --color-bg-darkest: #1e1e1e; /* App background */
+    --color-bg-sidebar: #222222; /* Sidebar background, input areas */
+    --color-bg-card: #2f2f2f; /* Darker card/section background */
+    --color-text-primary: #e0e0e0;
+    --color-text-secondary: #a0a0a0;
+    --color-text-code: #cccccc; /* For code editor */
+    --color-accent-blue: #4a8dfc; /* Main interactive blue */
+    --color-accent-blue-dark: #3a75e3; /* Darker blue for hover/active */
+    --color-border: #3c3c3c;
+    --color-border-subtle: #4a4a4a; /* Lighter border for subtle elements */
+    --color-red-error: #cf6679; /* Example for errors or warnings */
+    --color-green-success: #70b04a; /* Example for success */
+
+    /* Fonts */
+    --font-primary: 'Inter', sans-serif;
+    --font-mono: 'Space Mono', monospace; /* If specific code font desired */
+
+    /* Spacing */
+    --spacing-xs: 0.25rem; /* 4px */
+    --spacing-sm: 0.5rem;  /* 8px */
+    --spacing-md: 1rem;    /* 16px */
+    --spacing-lg: 1.5rem;  /* 24px */
+    --spacing-xl: 2rem;    /* 32px */
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+
+    /* Transition */
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.25s ease-in-out;
+}
+
+/* Base Reset & Box Sizing */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden; /* Prevent body scroll, app container handles it */
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.5;
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-darkest);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 14px; /* Standard UI font size */
+}
+
+a {
+    color: var(--color-accent-blue);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-accent-blue-dark);
+    text-decoration: underline;
+}
+
+button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+    font-family: inherit;
+    font-size: inherit;
+    padding: 0;
+    transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+button:focus-visible {
+    outline: 2px solid var(--color-accent-blue);
+    outline-offset: 2px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    color: var(--color-text-primary);
+    line-height: 1.2;
+}
+
+p {
+    margin-bottom: var(--spacing-sm);
+}
+
+/* --- App Layout --- */
+.app-container {
+    display: grid;
+    grid-template-columns: 240px 1fr 320px; /* Left Sidebar | Main Content | Right Sidebar */
+    height: 100vh;
+    width: 100vw;
+    overflow: hidden; /* Important to prevent horizontal scroll */
+}
+
+/* --- Left Sidebar --- */
+.left-sidebar {
+    background-color: var(--color-bg-sidebar);
+    padding: var(--spacing-md) var(--spacing-sm);
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--color-border);
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-right: var(--spacing-sm);
+    color: var(--color-accent-blue);
+}
+
+.logo-text {
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+.main-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-item {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    margin-bottom: var(--spacing-xs);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+.nav-item:hover {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+}
+
+.nav-item.active {
+    background-color: var(--color-bg-card); /* Lighter grey for active background */
+    color: var(--color-accent-blue); /* Blue for active text/icon */
+}
+
+.nav-icon {
+    width: 18px;
+    height: 18px;
+    margin-right: var(--spacing-sm);
+    stroke-width: 1.8; /* Lighter stroke for icons */
+}
+
+.nav-item.active .nav-icon {
+    stroke: var(--color-accent-blue); /* Explicitly set active icon color */
+}
+
+.feedback-area {
+    margin-top: auto; /* Push to bottom */
+    padding: var(--spacing-md);
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+}
+
+.feedback-link {
+    display: block;
+    margin-top: var(--spacing-xs);
+}
+
+/* --- Main Content Area --- */
+.main-content {
+    background-color: var(--color-bg-darkest);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Hide scrollbars, let inner content manage */
+}
+
+.main-content-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-bottom: 1px solid var(--color-border);
+    height: 48px; /* Fixed height for header */
+}
+
+.header-text {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--spacing-sm); /* Spacing between header icons */
+}
+
+.icon-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+}
+
+.icon-button svg {
+    width: 18px;
+    height: 18px;
+    stroke-width: 1.8;
+}
+
+.icon-button:hover {
+    background-color: var(--color-bg-card); /* Subtle hover background */
+    color: var(--color-text-primary);
+}
+
+/* Specific icon button state */
+.checkmark-button.active {
+    background-color: var(--color-accent-blue);
+    color: var(--color-text-primary); /* White/light color for active state */
+}
+
+.checkmark-button.active svg {
+    stroke: var(--color-white);
+}
+
+
+.chat-content {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Manage inner scrolling */
+    padding-left: var(--spacing-md); /* Match left side spacing */
+    padding-right: var(--spacing-md);
+    padding-bottom: var(--spacing-md);
+}
+
+.code-area {
+    flex-grow: 1; /* Take up available space */
+    overflow-y: auto; /* Allow vertical scrolling for code */
+    padding-right: var(--spacing-md); /* Padding for scrollbar */
+}
+
+.code-area pre {
+    background-color: var(--color-bg-darkest);
+    padding: var(--spacing-md) 0; /* Add top/bottom padding within content */
+    font-family: var(--font-mono); /* Apply monospace font for code */
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: var(--color-text-code);
+    white-space: pre-wrap; /* Wrap long lines */
+    word-break: break-word; /* Break words for long lines */
+}
+
+.code-area code:focus-visible {
+    outline: none; /* Hide default outline for contenteditable */
+}
+
+.input-area {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg); /* Rounded corners for input box */
+    padding: var(--spacing-sm) var(--spacing-sm); /* Inner padding */
+    margin-top: var(--spacing-md); /* Space above input */
+    background-color: var(--color-bg-sidebar);
+}
+
+.text-input {
+    flex-grow: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 1rem;
+    padding: var(--spacing-xs) var(--spacing-sm);
+}
+
+.text-input::placeholder {
+    color: var(--color-text-secondary);
+}
+
+.input-area .icon-button {
+    width: 38px; /* Slightly larger for "Run" */
+    height: 38px;
+    margin-left: var(--spacing-xs);
+    background-color: var(--color-accent-blue); /* Blue background for Run button */
+    color: var(--color-white);
+    border-radius: 50%; /* Make it round */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem; /* For "Run" text */
+    font-weight: 500;
+}
+
+.input-area .icon-button svg {
+    display: none; /* Hide SVG icon for the "Run" button */
+}
+
+.input-area .icon-button.history-toggle {
+    background: none; /* Make this one transparent initially */
+    color: var(--color-text-secondary);
+    border: 1px solid var(--color-border);
+    margin-right: var(--spacing-xs); /* Align this closer to the left */
+}
+
+.input-area .icon-button.history-toggle:hover {
+     background-color: var(--color-bg-card);
+     color: var(--color-text-primary);
+}
+
+.input-area .icon-button.history-toggle svg {
+    display: block; /* Show SVG icon for this button */
+}
+.input-area .icon-button.history-toggle span {
+    display: none; /* Hide "Run" text for this button */
+}
+
+
+/* --- Right Sidebar - Settings Panel --- */
+.right-sidebar {
+    background-color: var(--color-bg-sidebar);
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--color-border);
+    overflow-y: auto; /* Allow scrolling for settings */
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+}
+
+.sidebar-header h3 {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.close-sidebar-btn {
+    width: 28px;
+    height: 28px;
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+}
+.close-sidebar-btn:hover {
+    background-color: var(--color-bg-card);
+    color: var(--color-text-primary);
+}
+
+/* Setting Groups */
+.setting-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.setting-group label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-sm);
+    font-weight: 500;
+}
+
+.token-value {
+    display: block;
+    font-family: var(--font-mono); /* Monospace for token count */
+    font-size: 0.85rem;
+    color: var(--color-text-primary);
+}
+
+/* Dropdown Select Field */
+.dropdown-select {
+    position: relative;
+    width: 100%;
+    margin-top: var(--spacing-sm);
+}
+
+.select-field {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-lg) var(--spacing-sm) var(--spacing-md);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-primary);
+    font-family: inherit;
+    font-size: 0.95rem;
+    -webkit-appearance: none; /* Remove default dropdown arrow */
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.select-field:hover, .select-field:focus {
+    border-color: var(--color-accent-blue);
+    background-color: var(--color-bg-sidebar);
+}
+
+.dropdown-icon {
+    position: absolute;
+    right: var(--spacing-sm);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: var(--color-text-secondary);
+    width: 18px;
+    height: 18px;
+    transition: color var(--transition-fast);
+}
+
+/* Slider Group */
+.slider-group .slider-control {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+}
+
+.slider-control input[type="range"] {
+    flex-grow: 1;
+    -webkit-appearance: none;
+    appearance: none;
+    height: 4px; /* Track height */
+    background: var(--color-border); /* Track color */
+    outline: none;
+    border-radius: 2px;
+    cursor: pointer;
+}
+
+/* Webkit (Chrome, Safari) */
+.slider-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px; /* Thumb width */
+    height: 14px; /* Thumb height */
+    background: var(--color-accent-blue); /* Thumb color */
+    border: 2px solid var(--color-bg-sidebar); /* Border around thumb */
+    border-radius: 50%; /* Round thumb */
+    box-shadow: 0 0 0 2px var(--color-accent-blue); /* Glowing effect */
+    margin-top: -5px; /* Adjust thumb vertical position */
+}
+
+/* Firefox */
+.slider-control input[type="range"]::-moz-range-thumb {
+    width: 14px;
+    height: 14px;
+    background: var(--color-accent-blue);
+    border: 2px solid var(--color-bg-sidebar);
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--color-accent-blue);
+}
+
+.slider-value {
+    font-family: var(--font-mono); /* Monospace for temperature value */
+    font-size: 0.9rem;
+    color: var(--color-text-primary);
+    width: 30px; /* Fixed width for alignment */
+    text-align: right;
+}
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px; /* Width of the switch */
+    height: 24px; /* Height of the switch */
+    margin-top: var(--spacing-sm);
+    cursor: pointer;
+}
+
+/* Hide default checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* The slider track */
+.switch .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--color-border); /* Inactive color */
+    transition: var(--transition-normal);
+    border-radius: 34px; /* Round shape */
+}
+
+.switch .slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--color-text-secondary); /* Thumb color */
+    transition: var(--transition-normal);
+    border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+    background-color: var(--color-accent-blue); /* Active color */
+}
+
+.switch input:focus + .slider {
+    box-shadow: 0 0 0 2px var(--color-accent-blue); /* Focus effect */
+}
+
+.switch input:checked + .slider:before {
+    transform: translateX(20px); /* Move thumb to the right */
+    background-color: var(--color-white); /* White thumb when active */
+}
+
+/* Checkmark inside the thumb */
+.switch .check-icon {
+    position: absolute;
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    pointer-events: none; /* Make sure it doesn't interfere with clicks */
+    opacity: 0; /* Hidden by default */
+    transition: opacity var(--transition-normal) ease-in-out;
+}
+.switch input:checked + .slider .check-icon {
+    opacity: 1; /* Show when checked */
+    stroke: var(--color-accent-blue); /* Checkmark color (it will sit above white thumb) */
+    position: absolute; /* Re-position for correct placement */
+    left: calc(4px + 20px); /* Move to the checked position */
+}
+
+
+/* Small switch for collapse group */
+.switch.small {
+    width: 30px;
+    height: 18px;
+}
+.switch.small .slider:before {
+    height: 12px;
+    width: 12px;
+    left: 3px;
+    bottom: 3px;
+}
+.switch.small input:checked + .slider:before {
+    transform: translateX(12px);
+}
+.switch.small input:checked + .slider .check-icon { /* Remove check for small switches if it doesn't fit */
+    display: none;
+}
+
+
+/* Collapsible Setting Group */
+.setting-group-collapse {
+    margin-top: var(--spacing-lg);
+    border-top: 1px solid var(--color-border);
+    padding-top: var(--spacing-md);
+}
+
+.collapse-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-xs) 0;
+    cursor: pointer;
+    color: var(--color-text-primary);
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
+.collapse-header:hover {
+    color: var(--color-accent-blue);
+}
+.collapse-header:hover .chevron {
+    stroke: var(--color-accent-blue);
+}
+
+.collapse-header h4 {
+    margin: 0;
+    font-weight: 500;
+    font-size: inherit;
+    color: inherit; /* Inherit color from parent for hover effect */
+}
+
+.collapse-header .chevron {
+    width: 16px;
+    height: 16px;
+    stroke: var(--color-text-secondary);
+    transition: transform var(--transition-normal), stroke var(--transition-normal);
+}
+
+.collapse-header[aria-expanded="false"] .chevron {
+    transform: rotate(-90deg);
+}
+
+.collapse-content {
+    max-height: 500px; /* Arbitrary max height for transition */
+    overflow: hidden;
+    transition: max-height var(--transition-normal) ease-out, opacity var(--transition-normal);
+}
+
+.collapse-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden; /* Hide completely */
+}
+
+.setting-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-sm) 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.setting-row:last-child {
+    border-bottom: none;
+}
+
+.setting-row label {
+    margin-bottom: 0;
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+.toggle-and-button {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.remove-btn {
+    width: 24px;
+    height: 24px;
+    line-height: 1;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+}
+
+.remove-btn:hover {
+    background-color: var(--color-bg-darkest);
+    color: var(--color-text-primary);
+    border-color: var(--color-accent-blue);
+}
+
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 1024px) {
+    .app-container {
+        grid-template-columns: 80px 1fr 0; /* Collapsed right sidebar by default */
+        /* Optionally add media queries for toggling right sidebar later via JS */
+    }
+    .left-sidebar .logo-text, .left-sidebar span:not(.logo-icon) {
+        display: none; /* Hide text in collapsed sidebar */
+    }
+    .main-nav .nav-item {
+        justify-content: center; /* Center icons */
+        padding: var(--spacing-md) var(--spacing-sm);
+    }
+    .main-nav .nav-icon {
+        margin-right: 0; /* Remove icon margin */
+    }
+    .feedback-area {
+        display: none; /* Hide footer text in collapsed state */
+    }
+
+    .right-sidebar {
+        position: fixed;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 320px;
+        transform: translateX(100%);
+        transition: transform var(--transition-normal);
+        z-index: 2000;
+        box-shadow: -5px 0 10px rgba(0,0,0,0.2);
+    }
+
+    .right-sidebar.active {
+        transform: translateX(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .app-container {
+        grid-template-columns: 0 1fr 0; /* Left sidebar also collapsed */
+    }
+    .left-sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 240px; /* Still wider if opened */
+        transform: translateX(-100%);
+        transition: transform var(--transition-normal);
+        z-index: 2000;
+        box-shadow: 5px 0 10px rgba(0,0,0,0.2);
+    }
+    .left-sidebar.active {
+        transform: translateX(0);
+    }
+
+    /* Add toggles for opening/closing sidebars (not in original prompt's scope, but good for UX) */
+}
+
+/* Prevent body scrolling when sidebars are active (JS will add .no-scroll to body) */
+body.no-scroll {
+    overflow: hidden;
+}
