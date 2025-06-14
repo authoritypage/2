@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Axiom DevConsole | AI Command Dashboard UI</title>
-    <meta name="description" content="A high-fidelity web UI replication of a modern AI development console, featuring dark theme, clean typography, and interactive controls.">
-    <meta name="keywords" content="web UI, dashboard, AI console, developer tools, dark theme, front-end, HTML, CSS, JavaScript, responsive">
+    <title>InsightHub Metrics | Explore Civic Data</title>
+    <meta name="description" content="Explore key civic data metrics and trends. A clean, interactive data dashboard showcasing responsive design and engaging visualizations.">
+    <meta name="keywords" content="data, metrics, dashboard, civic, government, open data, visualization, HTML, CSS, JavaScript, responsive">
     <meta name="author" content="Your Name/Organization">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/axiom-devconsole/">
-    <meta property="og:title" content="Axiom DevConsole | AI Command Dashboard UI">
-    <meta property="og:description" content="A high-fidelity web UI replication of a modern AI development console, featuring dark theme, clean typography, and interactive controls.">
-    <meta property="og:image" content="https://yourusername.github.io/axiom-devconsole/assets/images/og-image-console.png"> <!-- Adjust with relevant image -->
+    <meta property="og:url" content="https://yourusername.github.io/insighthub-metrics/">
+    <meta property="og:title" content="InsightHub Metrics | Explore Civic Data">
+    <meta property="og:description" content="Explore key civic data metrics and trends. A clean, interactive data dashboard showcasing responsive design and engaging visualizations.">
+    <meta property="og:image" content="https://yourusername.github.io/insighthub-metrics/assets/images/og-image-metrics.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourusername.github.io/axiom-devconsole/">
-    <meta property="twitter:title" content="Axiom DevConsole | AI Command Dashboard UI">
-    <meta property="twitter:description" content="A high-fidelity web UI replication of a modern AI development console, featuring dark theme, clean typography, and interactive controls.">
-    <meta property="twitter:image" content="https://yourusername.github.io/axiom-devconsole/assets/images/twitter-image-console.png"> <!-- Adjust with relevant image -->
+    <meta property="twitter:url" content="https://yourusername.github.io/insighthub-metrics/">
+    <meta property="twitter:title" content="InsightHub Metrics | Explore Civic Data">
+    <meta property="twitter:description" content="Explore key civic data metrics and trends. A clean, interactive data dashboard showcasing responsive design and engaging visualizations.">
+    <meta property="twitter:image" content="https://yourusername.github.io/insighthub-metrics/assets/images/twitter-image-metrics.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico"> <!-- Using a conceptual icon, might need to be .png/.ico -->
+    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
 
-    <!-- Google Fonts: Inter for general text, a clean and versatile choice -->
+    <!-- Google Fonts: Inter for overall legibility, suited for data display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -36,180 +36,207 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="app-container">
-        <!-- Left Sidebar - Navigation -->
-        <aside class="left-sidebar">
-            <div class="logo-area">
-                <span class="logo-icon">▲</span>
-                <span class="logo-text">Axiom Studio</span>
-            </div>
+    <header class="site-header">
+        <div class="container header-container">
+            <h1 class="logo">InsightHub Metrics</h1>
             <nav class="main-nav">
-                <ul>
-                    <li><button class="nav-item active" data-nav="chat">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 7.6 8.38 8.38 0 0 1-3.8.9L2 22l1.3-3.9A9 9 0 0 1 2 11.5a8.5 8.5 0 0 1 7.6-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.5 8.5 0 0 1 4.5 1.4L21 2z"></path></svg>
-                        <span>Chat</span>
-                    </button></li>
-                    <li><button class="nav-item" data-nav="stream">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 14.5a.5.5 0 0 0-1 0v-5a.5.5 0 0 0 1 0v5zM7.5 17.5a.5.5 0 0 0-1 0v-11a.5.5 0 0 0 1 0v11zM11 20a.5.5 0 0 0-1 0V4a.5.5 0 0 0 1 0v16zM14.5 17.5a.5.5 0 0 0-1 0v-11a.5.5 0 0 0 1 0v11zM18 14.5a.5.5 0 0 0-1 0v-5a.5.5 0 0 0 1 0v5zM21.5 11.5a.5.5 0 0 0-1 0v-2a.5.5 0 0 0 1 0v2z"></path></svg>
-                        <span>Stream</span>
-                    </button></li>
-                    <li><button class="nav-item" data-nav="generate-media">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        <span>Generate Media</span>
-                    </button></li>
-                    <li><button class="nav-item" data-nav="build">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="9"></rect><rect x="14" y="3" width="7" height="5"></rect><rect x="14" y="12" width="7" height="9"></rect><rect x="3" y="16" width="7" height="5"></rect></svg>
-                        <span>Build</span>
-                    </button></li>
-                    <li><button class="nav-item" data-nav="history">
-                        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18z"></path><path d="M12 7v5l2.5 1.5"></path></svg>
-                        <span>History</span>
-                    </button></li>
+                <button class="nav-toggle" aria-label="Toggle navigation">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+                <ul class="nav-list">
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#data-topics">Data Topics</a></li>
+                    <li><a href="#how-it-works">How It Works</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                    <li><a href="#contact">Contact</a></li>
                 </ul>
             </nav>
-            <div class="feedback-area">
-                <p>This UI is for demonstration purposes only.</p>
-                <a href="#" class="feedback-link">Learn more</a>
+            <div class="header-actions">
+                <button class="action-btn primary-btn">Search Data
+                    <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
             </div>
-        </aside>
+        </div>
+    </header>
 
-        <!-- Main Content Area - Chat Prompt / Code Editor -->
-        <main class="main-content">
-            <div class="main-content-header">
-                <span class="header-text">Chat Prompt</span>
-                <div class="header-actions">
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 4V2.268C14.7352 2.09549 14.4371 2 14.125 2H9.875C9.56286 2 9.26477 2.09549 9 2.268V4C9 4.67391 8.73661 5.31816 8.26777 5.78693C7.79893 6.2557 7.15467 6.52009 6.48003 6.52009H3.88289C3.04561 6.52009 2.53676 7.42083 3 8.16335L6.03578 12.8398C6.18228 13.0652 6.24647 13.3323 6.22013 13.6L5.61053 18.2562C5.35532 18.8951 5.86438 19.5398 6.53612 19.5398H17.4639C18.1356 19.5398 18.6447 18.8951 18.3895 18.2562L17.7799 13.6C17.7535 13.3323 17.8177 13.0652 17.9642 12.8398L21 8.16335C21.4632 7.42083 20.9544 6.52009 20.1171 6.52009H17.5199C16.8453 6.52009 16.2011 6.2557 15.7323 5.78693C15.2634 5.31816 15 4.67391 15 4Z"></path></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82-.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0-.33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0 .33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82-.33H12V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1.82.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0 .33 1.82V12a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09z"></path></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1.05 4.385l5.632 5.631a7.485 7.485 0 0 1-1.396.953l-3.321-1.33A12.186 12.186 0 0 1 .494 5.372a.798.798 0 0 1-.027-.987l.259-.304a.797.797 0 0 1 .324-.316l-.004-.014z"></path><path d="M22.95 19.615l-5.632-5.631a7.485 7.485 0 0 1 1.396-.953l3.321 1.33A12.186 12.186 0 0 1 23.506 18.628a.798.798 0 0 1 .027.987l-.259.304a.797.797 0 0 1-.324.316l.004.014z"></path><path d="M18.615 1.05l-5.631 5.632a7.485 7.485 0 0 1-.953-1.396l1.33-3.321a12.186 12.186 0 0 1 3.99-3.411a.798.798 0 0 1 .987-.027l.304.259a.797.797 0 0 1 .316.324l.014-.004z"></path><path d="M5.385 22.95l5.631-5.632a7.485 7.485 0 0 1 .953 1.396l-1.33 3.321a12.186 12.186 0 0 1-3.99 3.411a.798.798 0 0 1-.987.027l-.304-.259a.797.797 0 0 1-.316-.324l-.014.004z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-4 9H2"></path></svg></button>
-                    <button class="icon-button checkmark-button active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 13.784L5.59 16.5a1.5 1.5 0 0 0 2.062-.12l8.807-10.428A1.5 1.5 0 0 1 19.8 5.105L21.5 2.5a.5.5 0 0 1 .693.364l-.272 13.921c-.015.772-.647 1.393-1.42 1.393h-1.398c-1.258 0-2.316 1.058-2.316 2.316s1.058 2.316 2.316 2.316H20a.5.5 0 0 1 .5.5.5.5 0 0 1-.5.5H4a.5.5 0 0 1-.5-.5.5.5 0 0 1 .5-.5h.698c1.258 0 2.316-1.058 2.316-2.316s-1.058-2.316-2.316-2.316H4.072a1.472 1.472 0 0 1-.84-.251L2.002 14.148A.5.5 0 0 1 2.5 13.784Z"></path></svg></button>
-                    <button class="icon-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg></button>
-                    <button class="icon-button more-options-button"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
-                </div>
-            </div>
-
-            <div class="chat-content">
-                <div class="code-area">
-                    <pre><code contenteditable="true">
-/*
- * Chat Prompt Area - For demonstrating code styling and input behavior.
- * This area can be used for your AI prompts or code snippets.
-*/
-
-// Define a function for a simple AI response
-function generateResponse(prompt) {
-  if (prompt.includes("hello")) {
-    return "Hello there! How can I assist you today?";
-  } else if (prompt.includes("weather")) {
-    return "I'm sorry, I cannot provide real-time weather information.";
-  } else {
-    return "I am an AI. Please ask me a question.";
-  }
-}
-
-// Example usage:
-let userPrompt = "Hello, AI!";
-console.log(generateResponse(userPrompt)); // Output: "Hello there! How can I assist you today?"
-
-// Add your custom prompt here:
-// let myPrompt = "What is the meaning of life?";
-// console.log(generateResponse(myPrompt));
-                    </code></pre>
-                </div>
-
-                <div class="input-area">
-                    <input type="text" class="text-input" placeholder="Start typing a prompt">
-                    <button class="icon-button">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5.373L16 12 11 18.627"></path><path d="M16 12l-5 6.627V5.373z"></path></svg>
-                        <span>Run</span>
-                    </button>
-                    <button class="icon-button history-toggle">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5.373L16 12 11 18.627"></path><path d="M16 12l-5 6.627V5.373z"></path></svg>
-                        <span> </span>
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <!-- Right Sidebar - Run Settings -->
-        <aside class="right-sidebar">
-            <div class="sidebar-header">
-                <h3>Run settings</h3>
-                <button class="icon-button close-sidebar-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></button>
-            </div>
-
-            <div class="setting-group">
-                <div class="dropdown-select">
-                    <label for="gemini-version" class="sr-only">Gemini 2.5 Flash Preview 05-20</label>
-                    <select id="gemini-version" class="select-field">
-                        <option value="gemini-2.5-flash-0520">Gemini 2.5 Flash Preview 05-20</option>
-                        <option value="gemini-1.5-pro">Gemini 1.5 Pro</option>
-                        <option value="gemini-1.0-nano">Gemini 1.0 Nano</option>
-                    </select>
-                    <span class="dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
-                </div>
-            </div>
-
-            <div class="setting-group">
-                <label for="token-count">Token count</label>
-                <span class="token-value">60,903 / 1,048,576</span>
-            </div>
-
-            <div class="setting-group slider-group">
-                <label for="temperature-slider">Temperature</label>
-                <div class="slider-control">
-                    <input type="range" id="temperature-slider" min="0" max="2" step="0.1" value="0.7">
-                    <span class="slider-value" id="temperature-value">0.7</span>
-                </div>
-            </div>
-
-            <div class="setting-group toggle-group">
-                <label for="thinking-mode-toggle">Thinking mode</label>
-                <label class="switch">
-                    <input type="checkbox" id="thinking-mode-toggle" checked>
-                    <span class="slider round">
-                        <span class="check-icon">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                        </span>
-                    </span>
-                </label>
-            </div>
-
-            <div class="setting-group-collapse">
-                <div class="collapse-header" tabindex="0" role="button" aria-expanded="true" aria-controls="tools-content">
-                    <h4>Tools</h4>
-                    <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
-                </div>
-                <div id="tools-content" class="collapse-content">
-                    <div class="setting-row">
-                        <label>Structured output</label>
-                        <div class="toggle-and-button">
-                             <label class="switch small">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                            <button class="remove-btn">-</button>
-                        </div>
-                    </div>
-                     <div class="setting-row">
-                        <label>Code execution</label>
-                        <div class="toggle-and-button">
-                             <label class="switch small">
-                                <input type="checkbox" checked>
-                                <span class="slider round"></span>
-                            </label>
-                            <button class="remove-btn">-</button>
-                        </div>
+    <!-- Hero Section - Dedicated to the Gradient Bar-Line Chart -->
+    <section id="hero-chart-section" class="hero-chart-section">
+        <div class="container chart-container">
+            <div class="chart-header">
+                <h2>Annual Data Accessibility Growth</h2>
+                <div class="chart-controls">
+                    <span class="label">Metrics:</span>
+                    <div class="dropdown-wrapper">
+                        <select id="metric-select">
+                            <option value="data-growth">New Datasets</option>
+                            <option value="user-engagement">User Engagement</option>
+                            <option value="api-calls">API Calls</option>
+                        </select>
+                        <span class="dropdown-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg></span>
                     </div>
                 </div>
             </div>
+            <!-- SVG will be dynamically generated here by JavaScript -->
+            <div id="data-visualization" class="data-visualization">
+                <svg class="chart-svg" viewBox="0 0 800 400" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <div class="chart-footer">
+                <p>Data reflects the aggregation of public dataset releases and platform interactions per fiscal year.</p>
+                <a href="#data-topics" class="learn-more">Explore All Metrics <svg class="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
+            </div>
+        </div>
+    </section>
 
-        </aside>
-    </div>
+    <main>
+        <!-- Overview & Key Metrics Section -->
+        <section id="overview" class="overview-section section-padding">
+            <div class="container">
+                <h3 class="section-heading">Overview & Key Metrics</h3>
+                <div class="metric-grid">
+                    <div class="metric-card">
+                        <div class="icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20v-6M6 20v-2M18 20v-4M4 11V8a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v3M6 2h12a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2z"></path></svg>
+                        </div>
+                        <h4>2,345,678</h4>
+                        <p>Total Datasets Available</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+                        </div>
+                        <h4>+15.2%</h4>
+                        <p>Annual Growth Rate</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <h4>789 M+</h4>
+                        <p>API Calls Last Quarter</p>
+                    </div>
+                    <div class="metric-card">
+                        <div class="icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="M10 9a3 3 0 1 0 0 6M14 9a3 3 0 1 0 0 6M22 12A10 10 0 0 0 12 2 10 10 0 0 0 2 12"></path></svg>
+                        </div>
+                        <h4>45</h4>
+                        <p>Key Data Topics</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Data Topics Section -->
+        <section id="data-topics" class="data-topics-section section-padding">
+            <div class="container">
+                <h3 class="section-heading">Browse Data by Topic</h3>
+                <div class="topic-grid">
+                    <a href="#" class="topic-card">
+                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-4 9H2"></path></svg>
+                        <h5>Economy & Finance</h5>
+                        <p>Key indicators, markets, and fiscal trends.</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                        <h5>Environment & Energy</h5>
+                        <p>Climate data, resources, and sustainability.</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                        <h5>Population & Demographics</h5>
+                        <p>Census, population changes, and social metrics.</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                        <h5>Education & Skills</h5>
+                        <p>Learning outcomes, access, and workforce data.</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3h18v18H3zM15 9h-6M12 6v6"></path></svg>
+                        <h5>Health & Wellness</h5>
+                        <p>Public health, disease trends, and healthcare access.</p>
+                    </a>
+                    <a href="#" class="topic-card">
+                        <svg class="icon-lg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+                        <h5>Geography & Mapping</h5>
+                        <p>Spatial data, maps, and geographical insights.</p>
+                    </a>
+                </div>
+                <div class="load-more-container">
+                    <button class="btn primary-btn">View All Topics</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works / Data Use Cases Section -->
+        <section id="how-it-works" class="how-it-works-section section-padding">
+            <div class="container">
+                <h3 class="section-heading">How Data Fuels Innovation</h3>
+                <div class="info-blocks-grid">
+                    <div class="info-block">
+                        <div class="info-icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 17.5l-4.5 4.5h9L12 17.5zm0-15v14"></path><polyline points="21 7.5 12 2.5 3 7.5"></polyline><path d="M21 7.5v9L12 21.5 3 16.5v-9"></path></svg>
+                        </div>
+                        <h4>Access Data via API</h4>
+                        <p>Seamlessly integrate public datasets into your applications and services using our robust API endpoints.</p>
+                        <a href="#">Learn about APIs →</a>
+                    </div>
+                    <div class="info-block">
+                        <div class="info-icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2c0-4.418 3.582-8 8-8s8 3.582 8 8"></path><path d="M18 10a5 5 0 1 0-5-5"></path><path d="M10 2a5 5 0 1 0 0 10"></path></svg>
+                        </div>
+                        <h4>Download & Analyze</h4>
+                        <p>Directly download datasets in various formats for local analysis, research, and policy development.</p>
+                        <a href="#">View Download Formats →</a>
+                    </div>
+                    <div class="info-block">
+                        <div class="info-icon-wrap">
+                            <svg class="icon-xl" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 9H4v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9zm-5.719 3L12 14.719 8.719 12M12 14.719V11"></path><circle cx="7" cy="7" r="2"></circle><circle cx="17" cy="7" r="2"></circle></svg>
+                        </div>
+                        <h4>Visualize & Interpret</h4>
+                        <p>Utilize integrated tools or external platforms to visualize complex datasets for clearer insights.</p>
+                        <a href="#">Explore Visualization Tools →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-content">
+            <div class="footer-col">
+                <h5>InsightHub Metrics</h5>
+                <p>Empowering informed decisions through accessible public data.</p>
+            </div>
+            <div class="footer-col">
+                <h5>Quick Links</h5>
+                <ul>
+                    <li><a href="#overview">Overview</a></li>
+                    <li><a href="#data-topics">Data Topics</a></li>
+                    <li><a href="#resources">Resources</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Connect</h5>
+                <ul>
+                    <li><a href="#">Feedback</a></li>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h5>Legal</h5>
+                <ul>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container copyright">
+            <p>© <span id="currentYear"></span> InsightHub Metrics. All rights reserved.</p>
+        </div>
+    </footer>
 
     <!-- Script at the end of body for deferred loading -->
     <script src="script.js"></script>
