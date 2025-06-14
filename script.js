@@ -1,261 +1,90 @@
-//
-// InsightHub Metrics - Script.js
-//
-// Author: Your Name/Organization
-// Version: 1.0.0
-//
-// Contains:
-// - Dynamic data visualization (Bar-Line Chart with gradient)
-// - Chart interactivity (tooltip)
-// - Responsive chart resizing
-// - Mobile navigation toggle
-// - Smooth scrolling for anchor links
-// - Dynamic year in footer
-//
+# Civic Data Portal | Official Public Data & Information (Data.gov Replica)
 
-document.addEventListener('DOMContentLoaded', () => {
+## Empowering a Data-Driven Nation: Your Gateway to Open Government Data
 
-    // --- 1. Dynamic Year in Footer ---
-    const currentYearSpan = document.getElementById('currentYear');
-    if (currentYearSpan) {
-        currentYearSpan.textContent = new Date().getFullYear();
-    }
+"Civic Data Portal" is a high-fidelity front-end replica of the iconic `data.gov` homepage, meticulously engineered to showcase the capabilities of modern web development in creating authoritative, user-friendly, and accessible public information hubs. This project prioritizes discoverability, clarity, and a trusted visual identity, ready for immediate deployment on GitHub Pages.
 
-    // --- 2. Mobile Navigation Toggle ---
-    const navToggle = document.querySelector('.nav-toggle');
-    const mainNav = document.querySelector('.main-nav');
-    const navList = document.querySelector('.nav-list');
-    const body = document.body;
+### Project Type
 
-    if (navToggle && mainNav && navList) {
-        navToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
-            body.classList.toggle('no-scroll'); // Prevents background scroll
-        });
+Official Data Portal / Government Website UI / Public Information Hub
 
-        // Close nav when a link is clicked
-        navList.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (mainNav.classList.contains('active')) {
-                    mainNav.classList.remove('active');
-                    body.classList.remove('no-scroll');
-                }
-            });
-        });
-    }
+### Design Philosophy
 
-    // --- 3. Smooth Scrolling for Anchor Links ---
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+*   **Authentic Government Aesthetic**: Embraces the clean lines, precise typography, and distinctive blue and neutral palette synonymous with official U.S. government web presence.
+*   **User-Centric Data Discovery**: Features a prominent hero search bar as the primary entry point, guiding users directly to the information they need.
+*   **Structured Content Presentation**: Data categories, news updates, tools, and resources are organized into clear, digestible, card-based sections for effortless navigation.
+*   **Accessibility as a Core Principle**: Designed with high contrast, semantic HTML, and intuitive interactive elements to ensure usability for all citizens.
+*   **Scalable and Maintainable**: Built with CSS custom properties (variables), Flexbox, and CSS Grid for a robust, adaptive, and easily customizable design system.
+*   **Comprehensive Information Architecture**: Includes a detailed multi-column footer, reflecting the breadth of information typical of government portals.
 
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
+### Features
 
-            if (targetElement) {
-                const headerOffset = document.querySelector('.site-header').offsetHeight;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+*   **Semantic HTML5**: A well-structured, modern markup for improved SEO and accessibility.
+*   **Responsive Header**: Adaptive top navigation with branding and a utility link.
+*   **Prominent Hero Search**: A large, inviting banner featuring a central search input and action button, complete with client-side form submission simulation.
+*   **Data Highlights Section**: Engaging display of key statistical figures.
+*   **Explore by Topic Grid**: Categorized data areas presented with clear icons and titles.
+*   **What's New & Upcoming Section**: Showcasing recent updates and initiatives.
+*   **Tools & Resources Showcase**: Cards detailing available resources for data users and developers.
+*   **Multi-Column Footer**: A comprehensive footer providing extensive navigation and legal links.
+*   **Mobile-First Design**: Ensures seamless user experience across all devices with an adaptive navigation toggle.
+*   **GitHub Pages Ready**: Includes `.nojekyll` for direct static site hosting.
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
+### Technologies Used
 
+*   **HTML5**: The bedrock of the portal's content and structure.
+*   **CSS3**: Custom variables, Flexbox, CSS Grid, and media queries are extensively used to achieve the pixel-perfect layout and visual theme.
+*   **JavaScript (Vanilla JS)**: Powers core UI interactions such as responsive navigation and basic search form handling.
+*   **Inline SVG Icons**: For sharp, scalable iconography that maintains visual integrity across all resolutions.
+*   **Google Fonts**: `Inter` is chosen for its excellent legibility and modern appearance, suitable for public information displays.
 
-    // --- 4. Data Visualization Logic ---
-    const svg = document.querySelector('#data-visualization .chart-svg');
-    const tooltip = document.createElement('div');
-    tooltip.classList.add('tooltip');
-    document.body.appendChild(tooltip);
+### Getting Started
 
-    // Mock Data
-    const mockData = [
-        { year: 2018, datasets: 15000, engagement: 0.3, apiCalls: 50 },
-        { year: 2019, datasets: 22000, engagement: 0.5, apiCalls: 75 },
-        { year: 2020, datasets: 30000, engagement: 0.7, apiCalls: 100 },
-        { year: 2021, datasets: 38000, engagement: 0.9, apiCalls: 130 },
-        { year: 2022, datasets: 45000, engagement: 1.1, apiCalls: 160 },
-        { year: 2023, datasets: 52000, engagement: 1.3, apiCalls: 200 }
-    ];
+To get a local copy up and running for preview or development:
 
-    let currentMetric = 'datasets'; // Default metric
+#### Prerequisites
 
-    const metricSelect = document.getElementById('metric-select');
-    if (metricSelect) {
-        metricSelect.addEventListener('change', (event) => {
-            currentMetric = event.target.value;
-            drawChart(); // Redraw chart with new metric
-        });
-    }
+You only need a modern web browser. Git is recommended for version control and deployment.
 
-    function drawChart() {
-        // Clear previous chart elements
-        svg.innerHTML = '';
+#### Installation
 
-        const svgWidth = svg.viewBox.baseVal.width;
-        const svgHeight = svg.viewBox.baseVal.height;
+1.  **Clone the repository:**
+    ```bash
+    git clone https://your-github-username/civic-data-portal.git
+    ```
+2.  **Navigate to the project directory:**
+    ```bash
+    cd civic-data-portal
+    ```
+3.  **Open `index.html`:**
+    Simply open the `index.html` file in your web browser. All styles and scripts are self-contained.
 
-        const margin = { top: 40, right: 40, bottom: 60, left: 60 }; // Increased margin for labels
-        const chartWidth = svgWidth - margin.left - margin.right;
-        const chartHeight = svgHeight - margin.top - margin.bottom;
+### Deployment (GitHub Pages)
 
-        // Create main chart group
-        const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        g.setAttribute('transform', `translate(${margin.left}, ${margin.top})`);
-        svg.appendChild(g);
+This project is perfectly tailored for GitHub Pages deployment:
 
-        // Scales
-        const xValues = mockData.map(d => d.year);
-        const yValues = mockData.map(d => d[currentMetric]);
+1.  **Create a new GitHub repository** (e.g., `civic-data-portal`).
+2.  **Push your project files** (the contents of the `civic-data-portal` folder) to this new repository.
+3.  **On GitHub.com, navigate to your repository's settings.**
+4.  **Under the "Pages" section, select the `main` branch (or your primary branch) as your source** and save.
+5.  **Ensure a `.nojekyll` file exists** in the root of your `civic-data-portal` directory (it's provided).
+6.  Your live site will be accessible at `https://your-github-username.github.io/civic-data-portal/`.
 
-        const xScale = (value) => {
-            const minYear = Math.min(...xValues);
-            const maxYear = Math.max(...xValues);
-            const range = maxYear - minYear;
-            return ((value - minYear) / range) * chartWidth;
-        };
+### Customization
 
-        const yScale = (value) => {
-            const minVal = 0; // Always start Y axis from 0
-            const maxVal = Math.max(...yValues) * 1.1; // Add 10% padding above max value
-            const range = maxVal - minVal;
-            return chartHeight - ((value - minVal) / range) * chartHeight; // Invert Y-axis for SVG
-        };
+*   **Color Palette**: Modify the CSS variables under `:root` in `style.css` to align with different government department branding or custom themes.
+*   **Content**: Easily update all textual content, statistics, and links within `index.html`.
+*   **Icons**: Replace or add to the inline SVGs with more specific icons relevant to your data domains.
+*   **Extend Functionality**: Integrate with a real data API for live search results, dynamic content loading, or interactive data visualizations beyond the current scope.
 
-        // Add SVG linear gradient definition
-        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
-        const linearGradient = document.createElementNS('http://www.w3.org/2000/svg', 'linearGradient');
-        linearGradient.setAttribute('id', 'barGradient');
-        linearGradient.setAttribute('x1', '0%');
-        linearGradient.setAttribute('y1', '0%');
-        linearGradient.setAttribute('x2', '0%');
-        linearGradient.setAttribute('y2', '100%');
+### Contribution
 
-        const stop1 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-        stop1.setAttribute('offset', '0%');
-        stop1.setAttribute('stop-color', 'var(--chart-gradient-start)');
-        linearGradient.appendChild(stop1);
+This project serves as a sophisticated template for public-facing data portals. Feel free to fork, adapt, and expand upon it. Contributions via issues or pull requests are welcome.
 
-        const stop2 = document.createElementNS('http://www.w3.org/2000/svg', 'stop');
-        stop2.setAttribute('offset', '100%');
-        stop2.setAttribute('stop-color', 'var(--chart-gradient-end)');
-        linearGradient.appendChild(stop2);
+### License
 
-        defs.appendChild(linearGradient);
-        svg.appendChild(defs);
+Distributed under the MIT License. See `LICENSE` for more information.
 
-        // Bars
-        const barWidth = chartWidth / (mockData.length * 1.5); // Adjust spacing
-        mockData.forEach((d, i) => {
-            const xPos = xScale(d.year) - (barWidth / 2); // Center bars on year
-            const barHeight = chartHeight - yScale(d[currentMetric]);
+---
 
-            const bar = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            bar.setAttribute('x', xPos);
-            bar.setAttribute('y', yScale(d[currentMetric]));
-            bar.setAttribute('width', barWidth);
-            bar.setAttribute('height', barHeight);
-            bar.setAttribute('fill', 'url(#barGradient)');
-            bar.classList.add('bar'); // Add class for CSS styling
-
-            // Add data attributes for tooltip
-            bar.dataset.year = d.year;
-            bar.dataset.value = d[currentMetric].toLocaleString();
-            g.appendChild(bar);
-
-            // Bar hover for tooltip
-            bar.addEventListener('mouseenter', (event) => {
-                tooltip.style.opacity = 1;
-                tooltip.textContent = `Year: ${d.year}, Value: ${d[currentMetric].toLocaleString()}`;
-                positionTooltip(event);
-            });
-            bar.addEventListener('mousemove', (event) => {
-                positionTooltip(event);
-            });
-            bar.addEventListener('mouseleave', () => {
-                tooltip.style.opacity = 0;
-            });
-        });
-
-        // Line (Connecting dots representing another metric or primary metric)
-        const linePathData = mockData.map(d => {
-            const x = xScale(d.year);
-            const y = yScale(d[currentMetric] * 0.9 + 500); // Slight offset or different metric
-            return `${x},${y}`;
-        }).join(' ');
-
-        const line = document.createElementNS('http://www.w3.org/2000/svg', 'polyline');
-        line.setAttribute('points', linePathData);
-        line.setAttribute('class', 'line-path'); // Add class for CSS styling
-        g.appendChild(line);
-
-        // Axes Labels
-        // X-axis (Years)
-        xValues.forEach(year => {
-            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            text.setAttribute('x', xScale(year));
-            text.setAttribute('y', chartHeight + margin.bottom / 2);
-            text.textContent = year;
-            text.classList.add('axis-label');
-            g.appendChild(text);
-        });
-
-        // Y-axis grid lines and labels (Simplified, few major grid lines)
-        const yAxisSteps = 4; // Number of horizontal grid lines
-        for (let i = 0; i <= yAxisSteps; i++) {
-            const y = chartHeight - (chartHeight / yAxisSteps) * i;
-            const value = (Math.max(...yValues) * 1.1 / yAxisSteps) * i;
-
-            // Grid line
-            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-            line.setAttribute('x1', 0);
-            line.setAttribute('y1', y);
-            line.setAttribute('x2', chartWidth);
-            line.setAttribute('y2', y);
-            line.classList.add('grid-line');
-            g.appendChild(line);
-
-            // Label
-            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-            text.setAttribute('x', -margin.left / 2 + 5); // Position label left of chart area
-            text.setAttribute('y', y);
-            text.setAttribute('text-anchor', 'start');
-            text.setAttribute('font-size', '12px');
-            text.setAttribute('fill', 'rgba(255, 255, 255, 0.6)');
-            text.textContent = `${value.toFixed(0)}`; // Display whole numbers
-            g.appendChild(text);
-        }
-
-        // --- Tooltip Positioning ---
-        function positionTooltip(event) {
-            // Get position relative to the main viewport
-            const chartRect = svg.getBoundingClientRect();
-            const mouseX = event.clientX;
-            const mouseY = event.clientY;
-
-            // Offset tooltip to not cover the mouse pointer
-            let tooltipX = mouseX + 15;
-            let tooltipY = mouseY + 15;
-
-            // Ensure tooltip stays within viewport
-            if (tooltipX + tooltip.offsetWidth > window.innerWidth) {
-                tooltipX = mouseX - tooltip.offsetWidth - 15;
-            }
-            if (tooltipY + tooltip.offsetHeight > window.innerHeight) {
-                tooltipY = mouseY - tooltip.offsetHeight - 15;
-            }
-
-            tooltip.style.left = `${tooltipX}px`;
-            tooltip.style.top = `${tooltipY}px`;
-        }
-    }
-
-    // Initial draw and redraw on window resize
-    drawChart();
-    window.addEventListener('resize', drawChart);
-
-});
+**Architected for public service and digital excellence by [Your Name/Organization].**
