@@ -1,37 +1,35 @@
 /*
     -----------------------------------------------------
-    StatStream Dashboard UI
+    Trauma Registry Dashboard UI
     Author: Your Name/Organization
     Version: 1.0.0
     -----------------------------------------------------
     Design Philosophy:
-    - Soft, Modern Aesthetic: Inspired by native app dashboards, using soft edges, subtle shadows, and ample whitespace.
-    - Data-Centric Clarity: Prioritizing readability and quick comprehension of metrics and trends.
-    - Minimalist Palette: Dominated by white and very light grays, with measured use of vibrant (e.g., green, blue) colors for emphasis.
-    - Fluid Responsiveness: Adapting gracefully to various screen sizes while maintaining visual integrity.
-    - Component Reusability: Designing cards and chart elements as standalone, portable units.
+    - Sober & Respectful: Clean, uncluttered UI suitable for sensitive data.
+    - Data-Focused: Clear presentation of tabular and summarized information.
+    - Accessible: High contrast, readable typography, standard interactive elements.
+    - Modern Minimalism: Subtle shadows, rounded corners, clean line work.
+    - Responsive: Optimized for various screen sizes, ensuring readability everywhere.
 */
 
 /* --- 0. Global Variables & Base Styles --- */
 :root {
-    /* Colors derived from screenshot and Apple's clean aesthetic */
-    --color-bg-light: #f5f5f5; /* App background - very subtle gray */
-    --color-bg-card: #ffffff; /* Card background - pure white */
-    --color-text-primary: #333333; /* Dark text for primary info */
-    --color-text-secondary: #888888; /* Lighter text for labels/meta */
-    --color-accent-green: #34c759; /* Positive trend/up color */
-    --color-accent-red: #ff3b30;   /* Negative trend/down color (not used yet, but good to define) */
-    --color-accent-blue: #007aff;  /* General accent for links/misc */
-    --color-border-subtle: #eeeeee; /* Very light borders */
-    --color-chart-line: #007aff; /* Blue line for charts */
-    --color-chart-fill-start: rgba(0, 122, 255, 0.15); /* Light blue for chart fill */
-    --color-chart-fill-end: rgba(0, 122, 255, 0);     /* Transparent end for fade */
+    /* Colors (Subdued palette for professionalism and readability) */
+    --color-primary-blue: #325881; /* A muted, authoritative blue */
+    --color-primary-blue-dark: #274465;
+    --color-accent-green: #28a745;   /* For positive indicators (if any, or success) */
+    --color-light-bg: #f8f9fa; /* Off-white for background */
+    --color-white: #ffffff;      /* Pure white for cards */
+    --color-dark-text: #212529;  /* Dark gray for primary text/headings */
+    --color-medium-text: #495057; /* General text */
+    --color-light-text: #6c757d;  /* Secondary/label text */
+    --color-border-light: #dee2e6; /* Light gray for borders */
+    --color-border-dark: #c0c4c9; /* Darker border for contrast */
 
-    /* Chart specific colors for the mini-bar chart (Screen Time inspired) */
-    --color-cat-productivity: #007AFF; /* Blue */
-    --color-cat-social: #FF9500;       /* Orange */
-    --color-cat-entertainment: #BF5AF2; /* Purple */
-    --color-cat-other: #5AC8FA;       /* Light Blue */
+    /* Chart specific colors (for breakdown chart) */
+    --chart-bar-color: var(--color-primary-blue);
+    --chart-text-color: var(--color-dark-text);
+    --chart-grid-color: var(--color-border-light);
 
     /* Fonts */
     --font-primary: 'Inter', sans-serif;
@@ -42,18 +40,20 @@
     --spacing-md: 1rem;    /* 16px */
     --spacing-lg: 1.5rem;  /* 24px */
     --spacing-xl: 2rem;    /* 32px */
+    --padding-section: calc(var(--spacing-md) * 2.5); /* 40px */
 
     /* Border Radius */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 18px; /* Prominent rounded corners for cards */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
 
-    /* Shadows (soft and diffuse) */
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
-    --shadow-card-hover: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.05);
+    /* Shadows (subtle, clean) */
+    --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    --shadow-md: 0 0.5rem 1rem rgba(0, 0, 0, 0.1);
 
     /* Transitions */
-    --transition-fast: 0.2s ease-out;
+    --transition-fast: 0.15s ease-in-out;
+    --transition-normal: 0.25s ease-in-out;
 }
 
 /* Base Reset & Box Sizing */
@@ -65,14 +65,14 @@
 
 html {
     scroll-behavior: smooth;
-    font-size: 16px; /* Base for rem units */
+    font-size: 16px;
 }
 
 body {
     font-family: var(--font-primary);
-    line-height: 1.4; /* Tighter line-height for clean UI */
-    color: var(--color-text-primary);
-    background-color: var(--color-bg-light);
+    line-height: 1.6;
+    color: var(--color-medium-text);
+    background-color: var(--color-light-bg);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
@@ -80,15 +80,15 @@ body {
     flex-direction: column;
 }
 
-/* General Link & Button Styling */
 a {
-    color: var(--color-accent-blue);
+    color: var(--color-primary-blue);
     text-decoration: none;
     transition: color var(--transition-fast);
 }
+
 a:hover {
-    color: var(--color-accent-blue);
-    text-decoration: underline; /* Subtle underline */
+    color: var(--color-primary-blue-dark);
+    text-decoration: underline;
 }
 
 button {
@@ -99,450 +99,396 @@ button {
     font-family: inherit;
     font-size: inherit;
     padding: 0;
-    transition: opacity var(--transition-fast);
+    transition: background-color var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
 }
+
 button:focus-visible {
-    outline: 2px solid var(--color-accent-blue);
+    outline: 2px solid var(--color-primary-blue);
     outline-offset: 2px;
     border-radius: var(--radius-sm);
 }
 
 /* Utility Classes */
 .container {
-    max-width: 1000px; /* Adjusted for tighter, dashboard feel */
+    max-width: 1200px;
     margin: 0 auto;
-    padding: 0 var(--spacing-lg); /* Generous side padding */
+    padding: 0 var(--spacing-lg);
 }
 
-/* --- Header --- */
-.app-header {
-    background-color: var(--color-bg-card);
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding: var(--spacing-md) 0;
-    box-shadow: var(--shadow-sm);
-    z-index: 100;
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
 }
-.header-content {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+
+h1, h2, h3 {
+    font-weight: 700;
+    color: var(--color-dark-text);
+    line-height: 1.2;
+    margin-bottom: var(--spacing-unit);
+}
+
+h1 { font-size: 2.2rem; }
+h2 { font-size: 1.8rem; margin-top: var(--spacing-xl); }
+
+/* --- App Header --- */
+.app-header {
+    background-color: var(--color-primary-blue);
+    color: var(--color-white);
+    padding: var(--spacing-lg) 0;
+    text-align: center;
+    box-shadow: var(--shadow-md);
 }
 .app-header h1 {
-    font-size: 1.5rem;
-    font-weight: 700;
+    color: var(--color-white);
     margin-bottom: 0;
 }
-.main-nav ul {
-    list-style: none;
-    display: flex;
-    gap: var(--spacing-xl);
-}
-.main-nav a {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: var(--color-text-primary);
-    padding: var(--spacing-sm) 0;
-    position: relative;
-    opacity: 0.7;
-    transition: opacity var(--transition-fast), color var(--transition-fast);
-}
-.main-nav a:hover {
-    opacity: 1;
-    color: var(--color-text-primary);
-    text-decoration: none;
-}
-.main-nav a.active {
-    opacity: 1;
-    color: var(--color-accent-blue); /* Active nav item color */
-}
-.main-nav a.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-accent-blue);
-    border-radius: 1px;
-}
 
-/* --- Dashboard Grid & Cards --- */
-.dashboard-grid {
+/* --- Main Content Area --- */
+.main-content-area {
+    padding: var(--padding-section) 0;
     display: grid;
-    grid-template-columns: 1fr; /* Default to single column for mobile */
-    gap: var(--spacing-xl); /* Generous gap between cards */
-    padding-top: var(--spacing-xl);
-    padding-bottom: var(--spacing-xl);
+    gap: var(--spacing-xl);
+    grid-template-columns: 1fr; /* Default to single column for all content */
 }
 
-.card {
-    background-color: var(--color-bg-card);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-card);
-    padding: var(--spacing-lg);
-    display: flex;
-    flex-direction: column;
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-.card:hover {
-    transform: translateY(-2px); /* Slight lift on hover */
-    box-shadow: var(--shadow-card-hover);
-}
-
-/* --- Stock-Style Chart Card (Large Card) --- */
-.large-card {
-    grid-column: 1 / -1; /* Spans full width on all sizes initially */
+/* --- Filters & Summary Section --- */
+.filters-summary-section {
+    background-color: var(--color-white);
     padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
 
-.stock-chart-card .card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    margin-bottom: var(--spacing-xl); /* Increased spacing for header to title */
-    font-size: 1.2rem;
-    font-weight: 600;
-}
-
-.stock-chart-card .main-metric-label {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    color: var(--color-text-primary);
-    font-size: 1.3rem;
-}
-.stock-chart-card .main-metric-label.up {
-    color: var(--color-accent-green);
-}
-.stock-chart-card .main-metric-label .icon-arrow-up {
-    width: 24px;
-    height: 24px;
-    stroke-width: 2;
-}
-
-.stock-chart-card .change-percent {
-    font-weight: 600;
-    color: var(--color-text-primary); /* Default for neutral */
-}
-.stock-chart-card .change-percent.up {
-    color: var(--color-accent-green);
-}
-
-.stock-chart-card .card-title h2 {
-    font-size: clamp(3rem, 7vw, 4.5rem); /* Very large number */
-    font-weight: 700;
-    line-height: 1;
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-lg);
-}
-
-.key-metrics-grid {
-    display: flex; /* Using flexbox for flexible spacing */
-    justify-content: space-around;
-    align-items: flex-end; /* Align labels at the bottom */
-    border-bottom: 1px solid var(--color-border-subtle);
-    padding-bottom: var(--spacing-lg);
+.filter-controls {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Flexible columns for filters */
+    gap: var(--spacing-lg);
     margin-bottom: var(--spacing-xl);
 }
 
-.key-metrics-grid .metric-item {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 0 var(--spacing-sm);
-}
-.key-metrics-grid .metric-item .label {
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-xs); /* Space between label and value */
-}
-.key-metrics-grid .metric-item .value {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--color-text-primary);
-    line-height: 1;
-}
-
-/* SVG Chart Area */
-.chart-area {
-    width: 100%;
-    height: 200px; /* Fixed height for consistency */
+.search-box {
     position: relative;
-    overflow: hidden;
-    margin-bottom: var(--spacing-md);
+    grid-column: 1 / -1; /* Search input spans all columns initially */
+    display: flex;
+    align-items: center;
 }
-
-.chart-svg {
+.search-box input[type="text"] {
     width: 100%;
-    height: 100%;
-}
-
-.chart-svg .line-path {
-    fill: none;
-    stroke: var(--color-chart-line);
-    stroke-width: 2px;
-    transition: all 0.3s ease-out;
-}
-
-.chart-svg .chart-fill-area {
-    fill: url(#chartGradient); /* Use the defined gradient */
-}
-
-.chart-svg .grid-line-x, .chart-svg .grid-line-y {
-    stroke: var(--color-border-subtle);
-    stroke-width: 1px;
-    stroke-dasharray: 4 4; /* Dashed lines for subtle grid */
-}
-
-.chart-svg text {
-    font-family: var(--font-primary);
-    font-size: 12px;
-    fill: var(--color-text-secondary);
-}
-
-.chart-footer-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: var(--color-text-secondary);
-    padding: 0 var(--spacing-xs); /* align with chart margins */
-    border-top: 1px solid var(--color-border-subtle); /* A subtle line like in original */
-    padding-top: var(--spacing-xs);
-}
-
-
-/* --- Small Cards --- */
-.small-card {
-    padding: var(--spacing-lg);
-}
-
-/* Screen Time Style Card */
-.time-metric-card .card-header-icon {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-}
-.time-metric-card .emoji-icon {
-    font-size: 1.5rem; /* Emojis tend to be larger */
-    line-height: 1;
-}
-.time-metric-card .card-title-text {
+    padding: var(--spacing-sm) var(--spacing-md);
+    padding-right: 40px; /* Space for clear button */
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-sm);
     font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0;
+    color: var(--color-dark-text);
+    background-color: var(--color-white);
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
 }
-.time-metric-card .time-main {
-    font-size: 2.2rem; /* Large time display */
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-primary);
+.search-box input[type="text"]::placeholder {
+    color: var(--color-light-text);
 }
-.breakdown-grid {
+.search-box input[type="text"]:focus {
+    border-color: var(--color-primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 121, 193, 0.25);
+    outline: none;
+}
+.search-box .icon-button {
+    position: absolute;
+    right: var(--spacing-xs);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%; /* Circular clear button */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-text-secondary);
+    transition: color var(--transition-fast);
+}
+.search-box .icon-button svg {
+    width: 16px;
+    height: 16px;
+    stroke-width: 2.5;
+}
+.search-box .icon-button:hover {
+    color: var(--color-primary-blue-dark);
+}
+
+
+.filter-group select {
+    width: 100%;
+    padding: var(--spacing-sm) var(--spacing-md);
+    border: 1px solid var(--color-border-dark);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    color: var(--color-dark-text);
+    background-color: var(--color-white);
+    cursor: pointer;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+    -webkit-appearance: none; /* Remove default dropdown arrow */
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 9l6 6 6-6' stroke='%23495057' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+}
+.filter-group select:focus {
+    border-color: var(--color-primary-blue);
+    box-shadow: 0 0 0 3px rgba(0, 121, 193, 0.25);
+    outline: none;
+}
+
+/* Summary Cards */
+.summary-section {
     display: grid;
-    grid-template-columns: 1fr;
-    gap: var(--spacing-sm);
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: var(--spacing-lg);
+    text-align: center;
+    margin-bottom: var(--padding-section);
 }
-.breakdown-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: var(--spacing-xs);
-    border-bottom: 1px solid var(--color-border-subtle);
-    font-size: 0.95rem;
-}
-.breakdown-item:last-child {
-    border-bottom: none;
-}
-.breakdown-item .breakdown-label {
-    font-weight: 500;
-    /* Category colors */
-}
-.breakdown-item .breakdown-value {
-    color: var(--color-text-secondary);
-}
-.category-productivity { color: var(--color-cat-productivity); }
-.category-social { color: var(--color-cat-social); }
-.category-entertainment { color: var(--color-cat-entertainment); }
 
-
-/* Mini Bar Chart Card (Energy Usage inspired) */
-.usage-metric-card .card-header-icon {
-     display: flex;
-     align-items: center;
-     gap: var(--spacing-sm);
-     margin-bottom: var(--spacing-md);
+.summary-card {
+    background-color: var(--color-white);
+    padding: var(--spacing-lg);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border-light);
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
 }
-.usage-metric-card .emoji-icon {
-    font-size: 1.5rem;
+.summary-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+}
+.summary-card .summary-number {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 800;
+    color: var(--color-primary-blue);
     line-height: 1;
+    margin-bottom: var(--spacing-xs);
 }
-.usage-metric-card .card-title-text {
-    font-size: 1rem;
-    font-weight: 600;
+.summary-card .summary-label {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-light-text);
     margin-bottom: 0;
 }
-.usage-metric-card .energy-main {
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-primary);
+
+/* Cause Breakdown Chart */
+.cause-breakdown-chart {
+    background-color: var(--color-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    margin-top: var(--spacing-xl); /* Space below summary cards */
 }
-.mini-bar-chart rect {
-    fill: var(--color-accent-blue);
-    transition: fill var(--transition-fast);
+.cause-breakdown-chart h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+    font-size: 1.8rem;
 }
-.mini-bar-chart rect:hover {
+.chart-canvas svg {
+    width: 100%;
+    height: 250px; /* Fixed height for chart area */
+}
+.chart-canvas .chart-bar {
+    fill: var(--chart-bar-color);
+    transition: fill var(--transition-normal);
+}
+.chart-canvas .chart-bar:hover {
     fill: var(--color-primary-blue-dark);
 }
-.energy-details {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--spacing-sm);
-    margin-top: var(--spacing-md); /* Space below chart */
+.chart-canvas .axis-label {
+    font-family: var(--font-primary);
+    font-size: 12px;
+    fill: var(--color-dark-text);
 }
-.change-status.up { color: var(--color-accent-green); }
-.change-status.down { color: var(--color-accent-red); }
+.chart-canvas .grid-line {
+    stroke: var(--chart-grid-color);
+    stroke-width: 1;
+    stroke-dasharray: 2 2;
+}
 
+/* --- Data Table Section --- */
+.data-table-section {
+    background-color: var(--color-white);
+    padding: var(--spacing-xl);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    overflow-x: auto; /* Allow horizontal scroll for table on small screens */
+}
+.data-table-section h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-xl);
+}
 
-/* Project Progress Card */
-.project-progress-card .card-header-icon {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
+.table-container {
+    position: relative;
+    /* max-height: 600px; Remove if you don't want vertical scroll for table within its container */
+    /* overflow-y: auto; */
 }
-.project-progress-card .emoji-icon {
-    font-size: 1.5rem;
-    line-height: 1;
-}
-.project-progress-card .card-title-text {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 0;
-}
-.project-progress-card .project-main {
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: var(--spacing-md);
-    color: var(--color-text-primary);
-}
-.progress-bar-container {
+
+.data-table {
     width: 100%;
-    height: 8px;
-    background-color: var(--color-border-subtle);
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    margin-bottom: var(--spacing-sm);
+    border-collapse: collapse;
+    min-width: 768px; /* Ensure table is readable on small screen if it collapses */
 }
-.progress-bar {
-    height: 100%;
-    background-color: var(--color-accent-green);
-    border-radius: var(--radius-sm);
-    transition: width 0.5s ease-out; /* For progress animation */
-}
-.progress-label {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: var(--color-text-primary);
-    margin-bottom: var(--spacing-md);
-    display: block; /* Ensures it's on its own line */
-}
-.task-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-size: 0.9rem;
-    color: var(--color-text-secondary);
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--spacing-sm);
+.data-table th, .data-table td {
+    padding: var(--spacing-sm) var(--spacing-md);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border-light);
 }
 
-/* Sales Metrics Card */
-.sales-metrics-card .card-header-icon {
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-sm);
-    margin-bottom: var(--spacing-md);
-}
-.sales-metrics-card .emoji-icon {
-    font-size: 1.5rem;
-    line-height: 1;
-}
-.sales-metrics-card .card-title-text {
-    font-size: 1rem;
+.data-table th {
+    background-color: var(--color-light-bg);
+    color: var(--color-dark-text);
     font-weight: 600;
-    margin-bottom: 0;
+    position: sticky;
+    top: 0;
+    z-index: 2; /* Keep headers above scrolling content */
+    cursor: pointer; /* Indicate sortable */
+    white-space: nowrap; /* Prevent headers from wrapping too early */
+    padding-right: var(--spacing-lg); /* Space for sort indicator */
 }
-.sales-metrics-card .sales-main {
-    font-size: 2.2rem;
-    font-weight: 700;
-    line-height: 1;
-    margin-bottom: var(--spacing-lg);
-    color: var(--color-text-primary);
+.data-table th:hover {
+    background-color: var(--color-medium-gray);
 }
-.mini-line-chart polyline {
-    fill: none;
-    stroke: var(--color-accent-green);
-    stroke-width: 2px;
+.data-table th .sort-indicator {
+    display: inline-block;
+    width: 0;
+    height: 0;
+    margin-left: var(--spacing-sm);
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid var(--color-light-text); /* Down arrow for unsorted/desc */
+    transition: all var(--transition-fast);
 }
-.sales-comparison {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
+.data-table th.asc .sort-indicator {
+    border-top: none;
+    border-bottom: 5px solid var(--color-primary-blue); /* Up arrow for asc */
+}
+.data-table th.desc .sort-indicator {
+    border-top: 5px solid var(--color-primary-blue); /* Down arrow for desc */
+}
+.data-table th:not(.asc):not(.desc) .sort-indicator {
+     border-top-color: var(--color-light-text); /* Faint indicator when unsorted */
+     border-bottom: 5px solid transparent;
+}
+
+
+.data-table tbody tr:nth-child(even) {
+    background-color: var(--color-light-bg);
+}
+.data-table tbody tr:hover {
+    background-color: var(--color-medium-gray);
+    color: var(--color-dark-text);
+}
+.data-table td {
+    color: var(--color-medium-text);
+    vertical-align: top;
+    font-size: 0.95rem;
+}
+.data-table td:nth-child(2), /* Victim Name */
+.data-table td:nth-child(5) { /* Institution */
+    white-space: nowrap; /* Keep these on one line if possible */
+}
+.data-table td:last-child {
+    max-width: 300px; /* Constrain cause text */
+    overflow-wrap: break-word; /* Allow long words to break */
+}
+
+
+.no-results-message {
+    text-align: center;
+    padding: var(--spacing-xl);
+    font-size: 1.1rem;
     color: var(--color-text-secondary);
-    border-top: 1px solid var(--color-border-subtle);
-    padding-top: var(--spacing-sm);
-    margin-top: var(--spacing-md);
 }
 
 
-/* --- Footer --- */
+/* --- App Footer --- */
 .app-footer {
-    background-color: var(--color-bg-card);
-    border-top: 1px solid var(--color-border-subtle);
-    padding: var(--spacing-md) 0;
+    background-color: var(--color-dark-text);
+    color: var(--color-white);
+    padding: var(--spacing-lg) 0;
     text-align: center;
     font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    margin-top: auto; /* Pushes footer to the bottom */
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.03);
+    margin-top: var(--spacing-xl);
+}
+.app-footer p {
+    margin-bottom: 0;
+    color: rgba(255,255,255,0.7);
 }
 
 /* --- Responsive Adjustments --- */
-@media (min-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: repeat(2, 1fr); /* Two columns for tablets */
+@media (min-width: 1024px) {
+    /* For larger desktops, layout filters/summary differently */
+    .main-content-area {
+        grid-template-columns: 3fr 1fr; /* Main table 3/4, filters/summary 1/4 (sidebar-like) */
+        gap: var(--spacing-xl);
     }
-    .large-card {
-        grid-column: 1 / -1; /* Main card still spans full width */
+    .filters-summary-section {
+        order: 2; /* Place filters/summary on the right */
+    }
+    .data-table-section {
+        order: 1; /* Place table on the left */
+    }
+
+    .filter-controls {
+        grid-template-columns: 1fr; /* Stack filters vertically */
+        padding-bottom: var(--spacing-xl); /* Space below filters */
+        border-bottom: 1px solid var(--color-border-light);
+    }
+    .search-box {
+        grid-column: auto; /* Reset to single column */
+    }
+    .summary-section {
+        grid-template-columns: 1fr; /* Stack summary cards vertically */
+        text-align: left;
+        margin-top: var(--spacing-xl); /* Space below filters */
+    }
+    .summary-card {
+        padding: var(--spacing-md); /* Smaller padding for stacked cards */
+        box-shadow: none; /* No shadow when stacked */
+    }
+    .summary-card .summary-number {
+        font-size: 1.8rem;
+    }
+    .summary-card .summary-label {
+        font-size: 0.85rem;
+    }
+    .cause-breakdown-chart {
+        box-shadow: none; /* No shadow when part of the bigger shadow-box */
+        padding: var(--spacing-md); /* Reduce padding */
+    }
+    .cause-breakdown-chart h2 {
+        font-size: 1.5rem;
+        margin-bottom: var(--spacing-md);
     }
 }
 
-@media (min-width: 1024px) {
-    .dashboard-grid {
-        grid-template-columns: 2fr 1fr 1fr; /* Custom grid for desktop */
-        grid-template-areas:
-            "main-chart main-chart main-chart"
-            "time-card usage-card project-card"; /* Define areas for easier placement */
+
+@media (max-width: 768px) {
+    .filters-summary-section {
+        padding: var(--spacing-lg); /* Reduce padding on smaller screens */
     }
-
-    .large-card.stock-chart-card { grid-area: main-chart; }
-    .small-card.time-metric-card { grid-area: time-card; }
-    .small-card.usage-metric-card { grid-area: usage-card; }
-    .small-card.project-progress-card { grid-area: project-card; }
-
-    /* For extra cards, you'd add more grid-template-areas and new grid-areas here */
-    /* Example: sales-metrics-card doesn't have a grid-area yet for the 3-col layout, it'll just fill next available. */
-    /* You could refine grid-template-areas to control precise placement */
-    /* "main-chart main-chart main-chart"
-       "time-card usage-card sales-card"
-       "project-card ." */
-    /* etc. */
+    .filter-controls {
+        grid-template-columns: 1fr; /* Always stack filters */
+        gap: var(--spacing-md);
+    }
+    .search-box {
+        grid-column: 1 / -1; /* Always span full width */
+    }
+    .summary-section {
+        grid-template-columns: 1fr; /* Stack summary cards */
+        gap: var(--spacing-md);
+    }
+    .summary-card .summary-number {
+        font-size: 2rem;
+    }
 }
