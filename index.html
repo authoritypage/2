@@ -3,130 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
-    <title>Trauma Registry Dashboard | Incident Analytics</title>
-    <meta name="description" content="A dashboard for analyzing and understanding patterns in incident data, providing clear visualization and filtering capabilities.">
-    <meta name="keywords" content="data, analytics, incidents, trauma, registry, dashboard, HTML, CSS, JavaScript, interactive table, data visualization">
-    <meta name="author" content="Your Name/Organization">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/trauma-registry-dashboard/">
-    <meta property="og:title" content="Trauma Registry Dashboard | Incident Analytics">
-    <meta property="og:description" content="A dashboard for analyzing and understanding patterns in incident data.">
-    <meta property="og:image" content="https://yourusername.github.io/trauma-registry-dashboard/assets/images/og-image-trauma.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourusername.github.io/trauma-registry-dashboard/">
-    <meta property="twitter:title" content="Trauma Registry Dashboard | Incident Analytics">
-    <meta property="twitter:description" content="A dashboard for analyzing and understanding patterns in incident data.">
-    <meta property="twitter:image" content="https://yourusername.github.io/trauma-registry-dashboard/assets/images/twitter-image-trauma.png">
-
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"> <!-- Using a conceptual icon, might need to be .png/.ico -->
-
-    <!-- Google Fonts: Inter for overall legibility, suited for data display -->
+    <meta name="description" content="A data visualization memorializing fraternity-related incidents, presented with a clean, modern, and respectful UI.">
+    <title>Data Memorial Dashboard | Fraternity Incident Analysis</title>
+    <!-- Google Fonts: Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="app-header">
-        <div class="container">
-            <h1>Incident Analytics Dashboard</h1>
-        </div>
+        <h1>Incident Overview</h1>
     </header>
 
-    <main class="container main-content-area">
-        <section class="filters-summary-section">
-            <div class="filter-controls">
-                <div class="search-box">
-                    <input type="text" id="searchInput" placeholder="Search by name, charter, or keyword..." aria-label="Search incident data">
-                    <button id="clearSearch" class="icon-button" aria-label="Clear search">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                    </button>
-                </div>
-                <div class="filter-group">
-                    <label for="stateFilter" class="sr-only">Filter by State</label>
-                    <select id="stateFilter">
-                        <option value="">All States</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="charterFilter" class="sr-only">Filter by Fraternity</label>
-                    <select id="charterFilter">
-                        <option value="">All Fraternities</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="yearFilter" class="sr-only">Filter by Year</label>
-                    <select id="yearFilter">
-                        <option value="">All Years</option>
-                    </select>
-                </div>
+    <main class="dashboard-grid container">
+        <!-- Main Line Chart Card -->
+        <section class="card large-card">
+            <div class="card-header">
+                <span class="main-metric-label">
+                    <svg class="icon-chart" viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 3v18h18"></path><path d="M18.7 8l-5.1 5.2-2.8-2.7L7 14.3"></path></svg>
+                    Incidents Per Year
+                </span>
+                <span id="total-incidents" class="total-value">74 Total</span>
             </div>
-
-            <div class="summary-section">
-                <div class="summary-card total-incidents">
-                    <p class="summary-number" id="totalIncidentsCount">--</p>
-                    <p class="summary-label">Total Incidents</p>
-                </div>
-                <div class="summary-card unique-states">
-                    <p class="summary-number" id="uniqueStatesCount">--</p>
-                    <p class="summary-label">States Involved</p>
-                </div>
-                <div class="summary-card unique-charters">
-                    <p class="summary-number" id="uniqueChartersCount">--</p>
-                    <p class="summary-label">Fraternities Involved</p>
-                </div>
+            <div class="card-title">
+                <h2 id="latest-year-value">4</h2>
+                <span id="latest-year-label">Incidents in 2024</span>
             </div>
-
-            <div class="cause-breakdown-chart">
-                <h2>Incident Causes Breakdown</h2>
-                <div class="chart-canvas" id="causeChart">
-                    <!-- SVG bar chart will be drawn here by JS -->
-                    <svg viewBox="0 0 500 250" preserveAspectRatio="xMidYMid meet"></svg>
-                </div>
+            
+            <!-- SVG Chart Area (dynamic content by JS) -->
+            <div class="chart-area" id="incidents-per-year-chart">
+                <svg class="chart-svg" viewBox="0 0 600 250" preserveAspectRatio="xMidYMid meet"></svg>
             </div>
-
         </section>
 
-        <section class="data-table-section">
-            <h2>Incident Details</h2>
-            <div class="table-container">
-                <table class="data-table" id="incidentTable">
-                    <thead>
-                        <tr>
-                            <th data-column="CHARTER">Fraternity <span class="sort-indicator"></span></th>
-                            <th data-column="NAME">Victim <span class="sort-indicator"></span></th>
-                            <th data-column="DOD">Year <span class="sort-indicator"></span></th>
-                            <th data-column="STATE">State <span class="sort-indicator"></span></th>
-                            <th data-column="INSTITUTION">Institution <span class="sort-indicator"></span></th>
-                            <th data-column="KNOWN_CAUSE">Cause <span class="sort-indicator"></span></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data rows will be dynamically inserted here by JavaScript -->
-                    </tbody>
-                </table>
-                <div id="noResultsMessage" class="no-results-message" style="display: none;">
-                    No incidents found matching your criteria.
-                </div>
+        <!-- Cause Breakdown Card (Screen Time style) -->
+        <section class="card small-card cause-breakdown-card">
+            <div class="card-header-icon">
+                <span role="img" aria-label="Warning icon" class="emoji-icon">⚠️</span>
+                <h3 class="card-title-text">Primary Causes</h3>
             </div>
+            <div class="breakdown-grid" id="cause-breakdown-grid">
+                <!-- Data will be populated by script.js -->
+            </div>
+        </section>
+
+        <!-- Additional cards can be added here -->
+        <section class="card small-card">
+            <div class="card-header-icon">
+                <span role="img" aria-label="Info icon" class="emoji-icon">ℹ️</span>
+                <h3 class="card-title-text">About This Data</h3>
+            </div>
+            <p class="about-text">This dashboard visualizes publicly available, crowd-sourced data on fraternity-related incidents. The goal is to raise awareness and promote discussion on student safety.</p>
+            <a href="#" class="details-link">Learn More →</a>
         </section>
     </main>
 
     <footer class="app-footer">
-        <div class="container">
-            <p>© <span id="currentYear"></span> Trauma Registry. All rights reserved.</p>
-        </div>
+        <p>© <span id="currentYear"></span> A Data-Driven Memorial. All Rights Reserved.</p>
     </footer>
 
+    <!-- Script at the end of body -->
     <script src="script.js"></script>
 </body>
 </html>
