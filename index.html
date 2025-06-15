@@ -5,170 +5,128 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>StatStream Dashboard | Personal Analytics & Trends</title>
-    <meta name="description" content="A clean, minimalist web dashboard showcasing analytical data and trends in an elegant, card-based UI, inspired by modern native app interfaces.">
-    <meta name="keywords" content="dashboard, analytics, metrics, UI, UX, minimalist, data visualization, charts, HTML, CSS, JavaScript, responsive">
+    <title>Trauma Registry Dashboard | Incident Analytics</title>
+    <meta name="description" content="A dashboard for analyzing and understanding patterns in incident data, providing clear visualization and filtering capabilities.">
+    <meta name="keywords" content="data, analytics, incidents, trauma, registry, dashboard, HTML, CSS, JavaScript, interactive table, data visualization">
     <meta name="author" content="Your Name/Organization">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/statstream-dashboard/">
-    <meta property="og:title" content="StatStream Dashboard | Personal Analytics & Trends">
-    <meta property="og:description" content="A clean, minimalist web dashboard showcasing analytical data and trends in an elegant, card-based UI, inspired by modern native app interfaces.">
-    <meta property="og:image" content="https://yourusername.github.io/statstream-dashboard/assets/images/og-image-dashboard.png">
+    <meta property="og:url" content="https://yourusername.github.io/trauma-registry-dashboard/">
+    <meta property="og:title" content="Trauma Registry Dashboard | Incident Analytics">
+    <meta property="og:description" content="A dashboard for analyzing and understanding patterns in incident data.">
+    <meta property="og:image" content="https://yourusername.github.io/trauma-registry-dashboard/assets/images/og-image-trauma.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourusername.github.io/statstream-dashboard/">
-    <meta property="twitter:title" content="StatStream Dashboard | Personal Analytics & Trends">
-    <meta property="twitter:description" content="A clean, minimalist web dashboard showcasing analytical data and trends in an elegant, card-based UI, inspired by modern native app interfaces.">
-    <meta property="twitter:image" content="https://yourusername.github.io/statstream-dashboard/assets/images/twitter-image-dashboard.png">
+    <meta property="twitter:url" content="https://yourusername.github.io/trauma-registry-dashboard/">
+    <meta property="twitter:title" content="Trauma Registry Dashboard | Incident Analytics">
+    <meta property="twitter:description" content="A dashboard for analyzing and understanding patterns in incident data.">
+    <meta property="twitter:image" content="https://yourusername.github.io/trauma-registry-dashboard/assets/images/twitter-image-trauma.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"> <!-- Placeholder, you might want a small icon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"> <!-- Using a conceptual icon, might need to be .png/.ico -->
 
-    <!-- Google Fonts: Inter for overall clarity and versatility -->
+    <!-- Google Fonts: Inter for overall legibility, suited for data display -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <!-- Main Stylesheet -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <header class="app-header">
-        <div class="container header-content">
-            <h1>StatStream Dashboard</h1>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#">Today</a></li>
-                    <li><a href="#">Week</a></li>
-                    <li><a href="#">Month</a></li>
-                </ul>
-            </nav>
+        <div class="container">
+            <h1>Incident Analytics Dashboard</h1>
         </div>
     </header>
 
-    <main class="dashboard-grid container">
-        <!-- Stock-style Chart Card -->
-        <section class="card large-card stock-chart-card">
-            <div class="card-header">
-                <span class="main-metric-label up">
-                    <svg class="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"></polyline><line x1="12" y1="18" x2="12" y2="6"></line></svg>
-                    Page Views
-                </span>
-                <span class="change-percent up">+45.2%</span>
-            </div>
-            <div class="card-title">
-                <h2>6,875</h2>
-            </div>
-            <div class="key-metrics-grid">
-                <div class="metric-item">
-                    <span class="label">Avg Time</span>
-                    <span class="value">03:15</span>
+    <main class="container main-content-area">
+        <section class="filters-summary-section">
+            <div class="filter-controls">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Search by name, charter, or keyword..." aria-label="Search incident data">
+                    <button id="clearSearch" class="icon-button" aria-label="Clear search">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
                 </div>
-                <div class="metric-item">
-                    <span class="label">Bounce Rate</span>
-                    <span class="value">52.3%</span>
+                <div class="filter-group">
+                    <label for="stateFilter" class="sr-only">Filter by State</label>
+                    <select id="stateFilter">
+                        <option value="">All States</option>
+                    </select>
                 </div>
-                <div class="metric-item">
-                    <span class="label">Unique Users</span>
-                    <span class="value">5,120</span>
+                <div class="filter-group">
+                    <label for="charterFilter" class="sr-only">Filter by Fraternity</label>
+                    <select id="charterFilter">
+                        <option value="">All Fraternities</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label for="yearFilter" class="sr-only">Filter by Year</label>
+                    <select id="yearFilter">
+                        <option value="">All Years</option>
+                    </select>
                 </div>
             </div>
 
-            <!-- SVG Chart Area (dynamic content by JS) -->
-            <div class="chart-area" id="page-views-chart">
-                <svg class="chart-svg" viewBox="0 0 500 200" preserveAspectRatio="xMidYMid meet"></svg>
+            <div class="summary-section">
+                <div class="summary-card total-incidents">
+                    <p class="summary-number" id="totalIncidentsCount">--</p>
+                    <p class="summary-label">Total Incidents</p>
+                </div>
+                <div class="summary-card unique-states">
+                    <p class="summary-number" id="uniqueStatesCount">--</p>
+                    <p class="summary-label">States Involved</p>
+                </div>
+                <div class="summary-card unique-charters">
+                    <p class="summary-number" id="uniqueChartersCount">--</p>
+                    <p class="summary-label">Fraternities Involved</p>
+                </div>
             </div>
 
-            <div class="chart-footer-labels">
-                <span>9 AM</span>
-                <span>12 PM</span>
-                <span>3 PM</span>
-                <span>6 PM</span>
+            <div class="cause-breakdown-chart">
+                <h2>Incident Causes Breakdown</h2>
+                <div class="chart-canvas" id="causeChart">
+                    <!-- SVG bar chart will be drawn here by JS -->
+                    <svg viewBox="0 0 500 250" preserveAspectRatio="xMidYMid meet"></svg>
+                </div>
             </div>
+
         </section>
 
-        <!-- Small "Screen Time" style cards below the main chart -->
-        <section class="card small-card time-metric-card">
-            <div class="card-header-icon">
-                 <!-- Example Emoji for 'Productivity' - For demo, using text, but real emoji or custom icon could be here -->
-                <span role="img" aria-label="Productivity icon" class="emoji-icon">🧠</span>
-                <h3 class="card-title-text">Today's Focus</h3>
-            </div>
-            <p class="time-main">3h 45m</p>
-            <div class="breakdown-grid">
-                <div class="breakdown-item">
-                    <span class="breakdown-label category-productivity">Productivity</span>
-                    <span class="breakdown-value">2h 15m</span>
+        <section class="data-table-section">
+            <h2>Incident Details</h2>
+            <div class="table-container">
+                <table class="data-table" id="incidentTable">
+                    <thead>
+                        <tr>
+                            <th data-column="CHARTER">Fraternity <span class="sort-indicator"></span></th>
+                            <th data-column="NAME">Victim <span class="sort-indicator"></span></th>
+                            <th data-column="DOD">Year <span class="sort-indicator"></span></th>
+                            <th data-column="STATE">State <span class="sort-indicator"></span></th>
+                            <th data-column="INSTITUTION">Institution <span class="sort-indicator"></span></th>
+                            <th data-column="KNOWN_CAUSE">Cause <span class="sort-indicator"></span></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Data rows will be dynamically inserted here by JavaScript -->
+                    </tbody>
+                </table>
+                <div id="noResultsMessage" class="no-results-message" style="display: none;">
+                    No incidents found matching your criteria.
                 </div>
-                <div class="breakdown-item">
-                    <span class="breakdown-label category-social">Social</span>
-                    <span class="breakdown-value">45m</span>
-                </div>
-                <div class="breakdown-item">
-                    <span class="breakdown-label category-entertainment">Entertainment</span>
-                    <span class="breakdown-value">45m</span>
-                </div>
             </div>
         </section>
-
-        <section class="card small-card usage-metric-card">
-             <div class="card-header-icon">
-                <span role="img" aria-label="Energy icon" class="emoji-icon">⚡️</span>
-                <h3 class="card-title-text">Energy Usage</h3>
-            </div>
-            <p class="energy-main">25.3 kWh</p>
-            <div class="chart-area" id="energy-chart">
-                <svg class="chart-svg mini-bar-chart" viewBox="0 0 200 60" preserveAspectRatio="xMidYMid meet"></svg>
-            </div>
-             <div class="energy-details">
-                <span>Avg: 23 kWh</span>
-                <span class="change-status up">Peak: 30 kWh</span>
-            </div>
-        </section>
-
-         <section class="card small-card project-progress-card">
-            <div class="card-header-icon">
-                <span role="img" aria-label="Progress icon" class="emoji-icon">📊</span>
-                <h3 class="card-title-text">Project Status</h3>
-            </div>
-            <p class="project-main">Marketing Campaign</p>
-            <div class="progress-bar-container">
-                <div class="progress-bar" style="width: 75%;"></div>
-            </div>
-            <span class="progress-label">75% Completed</span>
-            <div class="task-summary">
-                <span>12/16 tasks</span>
-                <a href="#">View Details →</a>
-            </div>
-        </section>
-
-         <section class="card small-card sales-metrics-card">
-            <div class="card-header-icon">
-                <span role="img" aria-label="Sales icon" class="emoji-icon">💰</span>
-                <h3 class="card-title-text">Revenue Growth</h3>
-            </div>
-            <p class="sales-main">$12,450</p>
-            <div class="chart-area" id="sales-chart">
-                <svg class="chart-svg mini-line-chart" viewBox="0 0 200 60" preserveAspectRatio="xMidYMid meet"></svg>
-            </div>
-            <div class="sales-comparison">
-                <span>Last Month: $11,900</span>
-                <span class="change-status up">+4.6%</span>
-            </div>
-        </section>
-
     </main>
 
     <footer class="app-footer">
         <div class="container">
-            <p>© <span id="currentYear"></span> StatStream Dashboard. All rights reserved.</p>
+            <p>© <span id="currentYear"></span> Trauma Registry. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Script at the end of body for deferred loading -->
     <script src="script.js"></script>
 </body>
 </html>
