@@ -1,96 +1,121 @@
-# StatStream Dashboard | Personal Analytics & Metric Overview
+document.addEventListener('DOMContentLoaded', () => {
 
-## Elevating Data Presentation with Native UI Aesthetics
+    // --- Processed Data from your CSV file ---
+    const incidentsPerYear = [{'year': 1954, 'incidents': 1}, {'year': 1970, 'incidents': 1}, {'year': 1976, 'incidents': 1}, {'year': 1980, 'incidents': 2}, {'year': 1986, 'incidents': 2}, {'year': 1987, 'incidents': 2}, {'year': 1988, 'incidents': 2}, {'year': 1989, 'incidents': 1}, {'year': 1990, 'incidents': 2}, {'year': 1991, 'incidents': 1}, {'year': 1992, 'incidents': 2}, {'year': 1993, 'incidents': 1}, {'year': 1994, 'incidents': 1}, {'year': 1995, 'incidents': 1}, {'year': 1996, 'incidents': 2}, {'year': 1998, 'incidents': 1}, {'year': 2000, 'incidents': 1}, {'year': 2001, 'incidents': 1}, {'year': 2002, 'incidents': 1}, {'year': 2003, 'incidents': 2}, {'year': 2005, 'incidents': 1}, {'year': 2006, 'incidents': 3}, {'year': 2007, 'incidents': 2}, {'year': 2008, 'incidents': 3}, {'year': 2009, 'incidents': 1}, {'year': 2010, 'incidents': 2}, {'year': 2011, 'incidents': 1}, {'year': 2012, 'incidents': 4}, {'year': 2013, 'incidents': 3}, {'year': 2014, 'incidents': 4}, {'year': 2015, 'incidents': 3}, {'year': 2016, 'incidents': 3}, {'year': 2017, 'incidents': 3}, {'year': 2018, 'incidents': 2}, {'year': 2019, 'incidents': 4}, {'year': 2020, 'incidents': 1}, {'year': 2021, 'incidents': 1}, {'year': 2022, 'incidents': 3}, {'year': 2024, 'incidents': 2}];
+    const causeData = [{'category': 'Fall-Related', 'count': 57}, {'category': 'Other/Unknown', 'count': 9}, {'category': 'Alcohol Poisoning', 'count': 4}, {'category': 'Drowning', 'count': 3}, {'category': 'Hazing', 'count': 1}];
+    const totalIncidents = 74;
 
-"StatStream Dashboard" is a sophisticated, minimalist web dashboard meticulously crafted to emulate the sleek, intuitive user interfaces found in modern native applications, such as Apple's Stocks or Screen Time widgets. It serves as a prime demonstration of advanced front-end architecture, focusing on elegant data presentation within responsive, card-like modules. This project is built for optimal performance and seamless deployment via GitHub Pages.
+    // --- Set Dynamic Year in Footer ---
+    document.getElementById('currentYear').textContent = new Date().getFullYear();
 
-### Project Type
+    // --- Populate Cards with Initial Data ---
+    document.getElementById('total-incidents').textContent = `${totalIncidents} Total`;
+    const latestYearData = incidentsPerYear[incidentsPerYear.length - 1];
+    document.getElementById('latest-year-value').textContent = latestYearData.incidents;
+    document.getElementById('latest-year-label').textContent = `Incidents in ${latestYearData.year}`;
+    
+    // --- Populate Cause Breakdown Card ---
+    const causeGrid = document.getElementById('cause-breakdown-grid');
+    causeData.forEach(item => {
+        const categoryClass = `category-${item.category.split('/')[0].toLowerCase().replace('-related', '')}`;
+        const breakdownItem = document.createElement('div');
+        breakdownItem.classList.add('breakdown-item');
+        breakdownItem.innerHTML = `
+            <span class="breakdown-label ${categoryClass}">${item.category}</span>
+            <span class="breakdown-value">${item.count}</span>
+        `;
+        causeGrid.appendChild(breakdownItem);
+    });
 
-Personal Analytics Dashboard / Metric Overview / UI Component Showcase
 
-### Design Philosophy
+    // --- Main Line Chart Drawing Logic ---
+    function drawLineChart(svgElementId, data) {
+        const svgContainer = document.getElementById(svgElementId);
+        if (!svgContainer) return;
+        const svg = svgContainer.querySelector('.chart-svg');
+        svg.innerHTML = ''; // Clear previous chart
 
-*   **Native App Inspiration**: Adopts the clean lines, generous use of whitespace, prominent typography, and soft, rounded containers characteristic of modern mobile and desktop interfaces.
-*   **Intuitive Data Visualization**: Features a custom-built SVG line chart with a smooth gradient fill (akin to stock charts) for displaying trends, complemented by clear axes and subtle grid lines. Mini-charts enhance smaller data cards.
-*   **Metric-Driven Hierarchy**: Large, bold numbers immediately convey key metrics, while supportive details and trend indicators provide context.
-*   **Soft Color Palette**: Predominantly white and very light gray backgrounds are accented with a vibrant green for positive trends and clear blues for primary visual elements.
-*   **Modular Componentry**: Each data card is designed as a reusable, self-contained component, promoting scalability and maintainability.
-*   **Optimized Responsiveness**: The dashboard dynamically rearranges and scales its cards to maintain visual harmony across desktops, tablets, and mobile devices.
+        const width = svg.viewBox.baseVal.width;
+        const height = svg.viewBox.baseVal.height;
+        const margin = { top: 10, right: 10, bottom: 20, left: 10 };
 
-### Features
+        const chartWidth = width - margin.left - margin.right;
+        const chartHeight = height - margin.top - margin.bottom;
 
-*   **Semantic HTML5 Structure**: Clean and logical markup providing a robust foundation.
-*   **Sleek Header**: Minimalist header with project title and simple navigation tabs.
-*   **Modular Card Layout**: A responsive grid system displays various data insights within aesthetically pleasing, shadowed cards.
-*   **Primary Line Chart Module**:
-    *   **Custom SVG Rendering**: JavaScript dynamically draws the line chart, including the data line, fill area (with linear gradient), and essential grid lines.
-    *   **Dynamic Data Plotting**: Capable of visualizing time-series or numerical trends.
-    *   **Interactive Tooltips**: Hover over data points for specific values.
-    *   **Responsive Scaling**: The chart intelligently resizes with its container.
-*   **Varied Data Card Examples**: Includes different card types:
-    *   A 'Screen Time'-inspired summary with categorization (Productivity, Social, Entertainment).
-    *   A mini-bar chart for historical usage (e.g., Energy Usage).
-    *   A dynamic progress bar for project tracking.
-    *   A mini-line chart for sales/revenue growth.
-*   **Clear Typography**: Uses `Inter` font, carefully selected for readability and visual impact across various metric sizes.
-*   **GitHub Pages Ready**: Includes `.nojekyll` for frictionless deployment.
+        // --- Create Scales ---
+        const years = data.map(d => d.year);
+        const values = data.map(d => d.incidents);
 
-### Technologies Used
+        const xScale = (year) => {
+            const minYear = Math.min(...years);
+            const maxYear = Math.max(...years);
+            return margin.left + ((year - minYear) / (maxYear - minYear)) * chartWidth;
+        };
 
-*   **HTML5**: The structural backbone of the dashboard cards and overall layout.
-*   **CSS3**: Extensive use of Flexbox, CSS Grid, custom properties (variables), subtle box-shadows, and transitions to create the polished, soft UI.
-*   **JavaScript (Vanilla JS)**: Powers all dynamic chart rendering using raw SVG DOM manipulation, data mapping, and responsive chart resizing. Handles minor UI interactions.
-*   **SVG**: For scalable, crisp line art in charts and potential icons.
-*   **Google Fonts**: `Inter` is chosen for its excellent legibility and modern aesthetic.
+        const yScale = (value) => {
+            const minVal = 0;
+            const maxVal = Math.max(...values) * 1.1; // 10% padding at top
+            return margin.top + chartHeight - ((value - minVal) / (maxVal - minVal)) * chartHeight;
+        };
 
-### Getting Started
+        // --- Define Gradient ---
+        const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+        const gradient = `<linearGradient id="chartGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:var(--color-chart-fill-start)" />
+                            <stop offset="100%" style="stop-color:var(--color-chart-fill-end)" />
+                          </linearGradient>`;
+        defs.innerHTML = gradient;
+        svg.appendChild(defs);
 
-To get a local copy up and running for preview or development:
+        // --- Draw Grid Lines (minimalist style) ---
+        const yMax = Math.max(...values) * 1.1;
+        const numGridLines = 3; // Top, middle, bottom
+        for (let i = 0; i <= numGridLines; i++) {
+            const y = margin.top + (chartHeight / numGridLines) * i;
+            const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+            line.setAttribute('x1', margin.left);
+            line.setAttribute('y1', y);
+            line.setAttribute('x2', width - margin.right);
+            line.setAttribute('y2', y);
+            line.classList.add('grid-line-y');
+            svg.appendChild(line);
+        }
 
-#### Prerequisites
+        // --- Create Line and Fill Area Paths ---
+        const linePathData = data.map(d => `${xScale(d.year)},${yScale(d.incidents)}`).join(' L');
+        const areaPathData = `M${xScale(data[0].year)},${height - margin.bottom} L${linePathData} L${xScale(data[data.length - 1].year)},${height - margin.bottom} Z`;
 
-You only need a modern web browser. Git is recommended for version control and deployment.
+        const fillArea = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        fillArea.setAttribute('d', areaPathData);
+        fillArea.classList.add('chart-fill-area');
+        svg.appendChild(fillArea);
 
-#### Installation
+        const linePath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        linePath.setAttribute('d', `M${linePathData}`);
+        linePath.classList.add('line-path');
+        svg.appendChild(linePath);
+        
+        // --- Add X-Axis Labels ---
+        const uniqueYears = [...new Set(data.map(d => Math.floor(d.year / 10) * 10))]; // Decades
+        const numLabels = 4;
+        const step = Math.ceil(data.length / numLabels);
+        for(let i=0; i<data.length; i += step) {
+            const year = data[i].year;
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', xScale(year));
+            text.setAttribute('y', height);
+            text.setAttribute('text-anchor', 'middle');
+            text.textContent = year;
+            text.classList.add('axis-text');
+            svg.appendChild(text);
+        }
+    }
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://your-github-username/statstream-dashboard.git
-    ```
-2.  **Navigate to the project directory:**
-    ```bash
-    cd statstream-dashboard
-    ```
-3.  **Open `index.html`:**
-    Simply open the `index.html` file in your web browser. All styles, scripts, and chart data are self-contained.
+    // --- Initialize and handle resize ---
+    function initializeDashboard() {
+        drawLineChart('incidents-per-year-chart', incidentsPerYear);
+    }
 
-### Deployment (GitHub Pages)
-
-This project is perfectly tailored for GitHub Pages deployment:
-
-1.  **Create a new GitHub repository** (e.g., `statstream-dashboard`).
-2.  **Push your project files** (the contents of the `statstream-dashboard` folder) to this new repository.
-3.  **On GitHub.com, navigate to your repository's settings.**
-4.  **Under the "Pages" section, select the `main` branch (or your primary branch) as your source** and save.
-5.  **Ensure a `.nojekyll` file exists** in the root of your `statstream-dashboard` directory (it's provided).
-6.  Your live site will be accessible at `https://your-github-username.github.io/statstream-dashboard/`.
-
-### Customization
-
-*   **Data Integration**: Replace the `mockData` arrays in `script.js` with your own analytics data. Adapt the data processing and scaling functions as needed.
-*   **Chart Types**: Extend the SVG drawing functions in `script.js` to create other chart types (e.g., pie charts, stacked bars).
-*   **Colors & Branding**: Easily adjust the accent colors (green, blue), background shades, and font stack in `:root` of `style.css` to match your own brand.
-*   **Card Content**: Modify the `index.html` to add more custom cards with relevant metrics and unique layouts.
-*   **Interactivity**: Enhance `script.js` for dynamic filtering, live data updates, or drill-down functionality within the dashboard.
-
-### Contribution
-
-This project serves as a sophisticated template for modern dashboards. Feel free to fork, adapt, and build upon it. Ideas and improvements are welcome via issues or pull requests.
-
-### License
-
-Distributed under the MIT License. See `LICENSE` for more information.
-
----
-
-**Architected to visualize insight with unparalleled elegance by [Your Name/Organization].**
+    initializeDashboard();
+    window.addEventListener('resize', initializeDashboard);
+});
