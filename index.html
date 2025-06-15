@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    <title>Civic Data Portal | Official Public Data & Information</title>
-    <meta name="description" content="Access official public data, tools, and resources from the U.S. government. Discover, explore, and utilize data for research and development.">
-    <meta name="keywords" content="data.gov, open data, government data, public data, datasets, civic tech, API, U.S. government">
+    <title>StatStream Dashboard | Personal Analytics & Trends</title>
+    <meta name="description" content="A clean, minimalist web dashboard showcasing analytical data and trends in an elegant, card-based UI, inspired by modern native app interfaces.">
+    <meta name="keywords" content="dashboard, analytics, metrics, UI, UX, minimalist, data visualization, charts, HTML, CSS, JavaScript, responsive">
     <meta name="author" content="Your Name/Organization">
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://yourusername.github.io/civic-data-portal/">
-    <meta property="og:title" content="Civic Data Portal | Official Public Data & Information">
-    <meta property="og:description" content="Access official public data, tools, and resources from the U.S. government. Discover, explore, and utilize data for research and development.">
-    <meta property="og:image" content="https://yourusername.github.io/civic-data-portal/assets/images/og-image-civic.png">
+    <meta property="og:url" content="https://yourusername.github.io/statstream-dashboard/">
+    <meta property="og:title" content="StatStream Dashboard | Personal Analytics & Trends">
+    <meta property="og:description" content="A clean, minimalist web dashboard showcasing analytical data and trends in an elegant, card-based UI, inspired by modern native app interfaces.">
+    <meta property="og:image" content="https://yourusername.github.io/statstream-dashboard/assets/images/og-image-dashboard.png">
 
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://yourusername.github.io/civic-data-portal/">
-    <meta property="twitter:title" content="Civic Data Portal | Official Public Data & Information">
-    <meta property="twitter:description" content="Access official public data, tools and resources from the U.S. government. Discover, explore, and utilize data for research and development.">
-    <meta property="twitter:image" content="https://yourusername.github.io/civic-data-portal/assets/images/twitter-image-civic.png">
+    <meta property="twitter:url" content="https://yourusername.github.io/statstream-dashboard/">
+    <meta property="twitter:title" content="StatStream Dashboard | Personal Analytics & Trends">
+    <meta property="twitter:description" content="A clean, minimalist web dashboard showcasing analytical data and trends in an elegant, card-based UI, inspired by modern native app interfaces.">
+    <meta property="twitter:image" content="https://yourusername.github.io/statstream-dashboard/assets/images/twitter-image-dashboard.png">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico"> <!-- Placeholder, you might want a small icon -->
 
-    <!-- Google Fonts: Inter as a strong, clean alternative to Public Sans for broad accessibility -->
+    <!-- Google Fonts: Inter for overall clarity and versatility -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -36,242 +36,135 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="site-header">
-        <div class="container header-container">
-            <h1 class="logo">
-                <a href="/">CivicData.gov</a>
-            </h1>
+    <header class="app-header">
+        <div class="container header-content">
+            <h1>StatStream Dashboard</h1>
             <nav class="main-nav">
-                <button class="nav-toggle" aria-label="Toggle navigation">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-                <ul class="nav-list">
-                    <li><a href="#find-data">Find Data</a></li>
-                    <li><a href="#topics">Topics</a></li>
-                    <li><a href="#tools-resources">Tools & Resources</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                <ul>
+                    <li><a href="#">Today</a></li>
+                    <li><a href="#">Week</a></li>
+                    <li><a href="#">Month</a></li>
                 </ul>
             </nav>
-            <div class="header-utility">
-                <button class="utility-link" aria-label="Sign In">Sign In</button>
-            </div>
         </div>
     </header>
 
-    <!-- Hero Search Section -->
-    <section id="hero-search" class="hero-search-section">
-        <div class="container hero-content">
-            <h2 class="hero-title">Access Public U.S. Data</h2>
-            <p class="hero-subtitle">The home of the U.S. Government’s open data. Here you will find data, tools, and resources to conduct research, develop web and mobile applications, design data visualizations, and more.</p>
-
-            <form class="search-form" id="mainSearchForm">
-                <div class="search-input-group">
-                    <input type="search" id="mainSearch" placeholder="Enter keywords..." aria-label="Search datasets and resources">
-                    <button type="submit" class="search-button">
-                        <svg class="icon-search" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-                        <span>Search</span>
-                    </button>
+    <main class="dashboard-grid container">
+        <!-- Stock-style Chart Card -->
+        <section class="card large-card stock-chart-card">
+            <div class="card-header">
+                <span class="main-metric-label up">
+                    <svg class="icon-arrow-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 11 12 6 7 11"></polyline><line x1="12" y1="18" x2="12" y2="6"></line></svg>
+                    Page Views
+                </span>
+                <span class="change-percent up">+45.2%</span>
+            </div>
+            <div class="card-title">
+                <h2>6,875</h2>
+            </div>
+            <div class="key-metrics-grid">
+                <div class="metric-item">
+                    <span class="label">Avg Time</span>
+                    <span class="value">03:15</span>
                 </div>
-            </form>
-            <a href="#browse-all" class="explore-link">Browse all <span id="dataset-count">280,000</span> datasets <svg class="icon-arrow-right" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></a>
-        </div>
-    </section>
+                <div class="metric-item">
+                    <span class="label">Bounce Rate</span>
+                    <span class="value">52.3%</span>
+                </div>
+                <div class="metric-item">
+                    <span class="label">Unique Users</span>
+                    <span class="value">5,120</span>
+                </div>
+            </div>
 
-    <main>
-        <!-- Data Highlights / Metrics Section (Optional: smaller cards if needed) -->
-        <section id="highlights" class="highlights-section section-padding">
-            <div class="container">
-                <h3 class="section-heading">Data Highlights</h3>
-                <div class="highlight-grid">
-                    <div class="highlight-card">
-                        <p class="highlight-number">280,000+</p>
-                        <p class="highlight-label">Datasets</p>
-                    </div>
-                    <div class="highlight-card">
-                        <p class="highlight-number">10,000+</p>
-                        <p class="highlight-label">Data Types</p>
-                    </div>
-                    <div class="highlight-card">
-                        <p class="highlight-number">8,000+</p>
-                        <p class="highlight-label">API Resources</p>
-                    </div>
+            <!-- SVG Chart Area (dynamic content by JS) -->
+            <div class="chart-area" id="page-views-chart">
+                <svg class="chart-svg" viewBox="0 0 500 200" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+
+            <div class="chart-footer-labels">
+                <span>9 AM</span>
+                <span>12 PM</span>
+                <span>3 PM</span>
+                <span>6 PM</span>
+            </div>
+        </section>
+
+        <!-- Small "Screen Time" style cards below the main chart -->
+        <section class="card small-card time-metric-card">
+            <div class="card-header-icon">
+                 <!-- Example Emoji for 'Productivity' - For demo, using text, but real emoji or custom icon could be here -->
+                <span role="img" aria-label="Productivity icon" class="emoji-icon">🧠</span>
+                <h3 class="card-title-text">Today's Focus</h3>
+            </div>
+            <p class="time-main">3h 45m</p>
+            <div class="breakdown-grid">
+                <div class="breakdown-item">
+                    <span class="breakdown-label category-productivity">Productivity</span>
+                    <span class="breakdown-value">2h 15m</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label category-social">Social</span>
+                    <span class="breakdown-value">45m</span>
+                </div>
+                <div class="breakdown-item">
+                    <span class="breakdown-label category-entertainment">Entertainment</span>
+                    <span class="breakdown-value">45m</span>
                 </div>
             </div>
         </section>
 
-        <!-- Topics Section - CORRECTED WITH CLEAN, RECOGNIZABLE LINE-ART ICONS -->
-        <section id="topics" class="topics-section section-padding">
-            <div class="container">
-                <h3 class="section-heading">Explore by Topic</h3>
-                <div class="topic-grid">
-                    <a href="#" class="topic-card">
-                        <!-- AGRICULTURE: Sprout/Leaf Icon (common symbol) -->
-                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M17.43 20H5.56C5.23 20 5 19.78 5 19.5V11A7.44 7.44 0 0 1 12 4a7.44 7.44 0 0 1 7 7.5v8.5C19 19.78 18.77 20 18.44 20zM12 4.09V2"></path>
-                        </svg>
-                        <h4>Agriculture</h4>
-                    </a>
-                    <a href="#" class="topic-card">
-                        <!-- CLIMATE: Sun, Cloud & Raindrop (common symbol) -->
-                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="6"></circle>
-                            <line x1="12" y1="1" x2="12" y2="3"></line>
-                            <line x1="12" y1="21" x2="12" y2="23"></line>
-                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                            <line x1="1" y1="12" x2="3" y2="12"></line>
-                            <line x1="21" y1="12" x2="23" y2="12"></line>
-                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                        </svg>
-                        <h4>Climate</h4>
-                    </a>
-                    <a href="#" class="topic-card">
-                        <!-- EDUCATION: Open Book (clear symbol) -->
-                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V6.5A2.5 2.5 0 0 0 17.5 4H4C2.34 4 1 5.34 1 7v10.5a2.5 2.5 0 0 0 3 2"></path>
-                            <path d="M22 17H6.5a2.5 2.5 0 0 1 0-5H22V17z"></path>
-                        </svg>
-                        <h4>Education</h4>
-                    </a>
-                    <a href="#" class="topic-card">
-                        <!-- HEALTH: Heartbeat / Pulse Line (common medical symbol) -->
-                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M22 12h-4l-3 9L9 3l-3 9H2"></path>
-                        </svg>
-                        <h4>Health</h4>
-                    </a>
-                    <a href="#" class="topic-card">
-                        <!-- HOUSING & INFRASTRUCTURE: Building/House (clear symbol) -->
-                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                        </svg>
-                        <h4>Housing & Infrastructure</h4>
-                    </a>
-                    <a href="#" class="topic-card">
-                        <!-- GEOGRAPHY & MAPPING: Globe / World Map (clear symbol) -->
-                        <svg class="topic-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                        </svg>
-                        <h4>Geography & Mapping</h4>
-                    </a>
-                </div>
-                <div class="load-more-container">
-                    <a href="#topics" class="link-btn">View All Topics →</a>
-                </div>
+        <section class="card small-card usage-metric-card">
+             <div class="card-header-icon">
+                <span role="img" aria-label="Energy icon" class="emoji-icon">⚡️</span>
+                <h3 class="card-title-text">Energy Usage</h3>
+            </div>
+            <p class="energy-main">25.3 kWh</p>
+            <div class="chart-area" id="energy-chart">
+                <svg class="chart-svg mini-bar-chart" viewBox="0 0 200 60" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+             <div class="energy-details">
+                <span>Avg: 23 kWh</span>
+                <span class="change-status up">Peak: 30 kWh</span>
             </div>
         </section>
 
-        <!-- What's New & Upcoming Section (remains the same) -->
-        <section id="whats-new" class="whats-new-section section-padding">
-            <div class="container">
-                <h3 class="section-heading">What's New & Upcoming</h3>
-                <div class="news-grid">
-                    <div class="news-card">
-                        <span class="news-date">October 26, 2023</span>
-                        <h5>New Policy on Open Data Standards Released</h5>
-                        <p>Guidelines for federal agencies to ensure data consistency and accessibility...</p>
-                        <a href="#">Read More →</a>
-                    </div>
-                    <div class="news-card">
-                        <span class="news-date">October 19, 2023</span>
-                        <h5>Hackathon Winners Announced: Smart City Solutions</h5>
-                        <p>Celebrating innovative projects built using public infrastructure data...</p>
-                        <a href="#">Read More →</a>
-                    </div>
-                    <div class="news-card">
-                        <span class="news-date">October 12, 2023</span>
-                        <h5>Interactive Map of Renewable Energy Sources Launched</h5>
-                        <p>Visualizing green energy initiatives across states for better public insight...</p>
-                        <a href="#">Read More →</a>
-                    </div>
-                </div>
-                <div class="load-more-container">
-                    <a href="#" class="link-btn">View All News →</a>
-                </div>
+         <section class="card small-card project-progress-card">
+            <div class="card-header-icon">
+                <span role="img" aria-label="Progress icon" class="emoji-icon">📊</span>
+                <h3 class="card-title-text">Project Status</h3>
+            </div>
+            <p class="project-main">Marketing Campaign</p>
+            <div class="progress-bar-container">
+                <div class="progress-bar" style="width: 75%;"></div>
+            </div>
+            <span class="progress-label">75% Completed</span>
+            <div class="task-summary">
+                <span>12/16 tasks</span>
+                <a href="#">View Details →</a>
             </div>
         </section>
 
-        <!-- Tools & Resources Section (remains the same) -->
-        <section id="tools-resources" class="tools-resources-section section-padding">
-            <div class="container">
-                <h3 class="section-heading">Tools & Resources</h3>
-                <div class="tools-grid">
-                    <a href="#" class="tool-card">
-                        <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-                        <h4>Developer API Docs</h4>
-                        <p>Access our comprehensive API documentation for seamless integration.</p>
-                    </a>
-                    <a href="#" class="tool-card">
-                        <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 17H2a4.99 4.99 0 0 0 2 2h16c.4-.4.8-1 1-2.5m-3.5-3.5L14 10.5 9 17 5 13"></path></svg>
-                        <h4>Data Use Cases</h4>
-                        <p>Explore real-world examples of how our data is being used for impact.</p>
-                    </a>
-                    <a href="#" class="tool-card">
-                        <svg class="tool-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="12" y1="3" x2="12" y2="21"></line></svg>
-                        <h4>Open Data Community</h4>
-                        <p>Connect with other data enthusiasts and contribute to open data initiatives.</p>
-                    </a>
-                </div>
-                <div class="load-more-container">
-                    <a href="#" class="link-btn">View All Tools & Resources →</a>
-                </div>
+         <section class="card small-card sales-metrics-card">
+            <div class="card-header-icon">
+                <span role="img" aria-label="Sales icon" class="emoji-icon">💰</span>
+                <h3 class="card-title-text">Revenue Growth</h3>
+            </div>
+            <p class="sales-main">$12,450</p>
+            <div class="chart-area" id="sales-chart">
+                <svg class="chart-svg mini-line-chart" viewBox="0 0 200 60" preserveAspectRatio="xMidYMid meet"></svg>
+            </div>
+            <div class="sales-comparison">
+                <span>Last Month: $11,900</span>
+                <span class="change-status up">+4.6%</span>
             </div>
         </section>
+
     </main>
 
-    <footer class="site-footer">
-        <div class="container footer-primary">
-            <div class="footer-section footer-about">
-                <h5>About CivicData.gov</h5>
-                <p>Your authoritative source for open data from the U.S. government. Empowering public insight and innovation.</p>
-            </div>
-            <div class="footer-section">
-                <h5>Explore Data</h5>
-                <ul>
-                    <li><a href="#find-data">Find Datasets</a></li>
-                    <li><a href="#topics">Data Topics</a></li>
-                    <li><a href="#">Popular Searches</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h5>Resources</h5>
-                <ul>
-                    <li><a href="#tools-resources">Tools & Developers</a></li>
-                    <li><a href="#">Publications</a></li>
-                    <li><a href="#">Open API</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h5>Help & Feedback</h5>
-                <ul>
-                    <li><a href="#">FAQs</a></li>
-                    <li><a href="#">Contact Us</a></li>
-                    <li><a href="#">Submit Feedback</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h5>Policies</h5>
-                <ul>
-                    <li><a href="#">Privacy Policy</a></li>
-                    <li><a href="#">Terms of Service</a></li>
-                    <li><a href="#">Accessibility Statement</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="container footer-secondary">
-            <p>A service of the U.S. General Services Administration</p>
-            <p>© <span id="currentYear"></span> U.S. Government. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#" aria-label="Link to Twitter">Twitter</a>
-                <a href="#" aria-label="Link to GitHub">GitHub</a>
-                <a href="#" aria-label="Link to YouTube">YouTube</a>
-            </div>
+    <footer class="app-footer">
+        <div class="container">
+            <p>© <span id="currentYear"></span> StatStream Dashboard. All rights reserved.</p>
         </div>
     </footer>
 
