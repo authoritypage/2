@@ -1,50 +1,59 @@
 /*
     -----------------------------------------------------
-    Civic Data Portal - Data.gov Homepage Replica UI
+    StatStream Dashboard UI
     Author: Your Name/Organization
     Version: 1.0.0
     -----------------------------------------------------
     Design Philosophy:
-    - Authoritative & Trustworthy: Clear, clean, and professional.
-    - User-Centric: Prominent search, intuitive navigation, digestible information.
-    - Accessibility Focus: High contrast, readable fonts, semantic structure.
-    - Clean & Spacious: Ample negative space to reduce cognitive load.
-    - Government Blue Theme: Utilizing specific blues and neutrals for brand consistency.
+    - Soft, Modern Aesthetic: Inspired by native app dashboards, using soft edges, subtle shadows, and ample whitespace.
+    - Data-Centric Clarity: Prioritizing readability and quick comprehension of metrics and trends.
+    - Minimalist Palette: Dominated by white and very light grays, with measured use of vibrant (e.g., green, blue) colors for emphasis.
+    - Fluid Responsiveness: Adapting gracefully to various screen sizes while maintaining visual integrity.
+    - Component Reusability: Designing cards and chart elements as standalone, portable units.
 */
 
 /* --- 0. Global Variables & Base Styles --- */
 :root {
-    /* Colors inspired by Data.gov and common US Government branding */
-    --color-primary-blue: #0079C1; /* Main government blue */
-    --color-primary-blue-dark: #005697; /* Darker blue for hover/active */
-    --color-accent-sky: #6AC0FE;   /* Lighter blue for subtle highlights/gradients */
-    --color-white: #ffffff;
-    --color-light-gray: #f2f2f2; /* Light background for sections */
-    --color-medium-gray: #e0e0e0; /* Border/separator */
-    --color-dark-gray: #424242; /* Main text, dark background for footer */
-    --color-text-secondary: #6B6B6B; /* Subtitles, meta text */
-    --color-link-hover: #0056b3; /* Standard dark blue hover for text links */
+    /* Colors derived from screenshot and Apple's clean aesthetic */
+    --color-bg-light: #f5f5f5; /* App background - very subtle gray */
+    --color-bg-card: #ffffff; /* Card background - pure white */
+    --color-text-primary: #333333; /* Dark text for primary info */
+    --color-text-secondary: #888888; /* Lighter text for labels/meta */
+    --color-accent-green: #34c759; /* Positive trend/up color */
+    --color-accent-red: #ff3b30;   /* Negative trend/down color (not used yet, but good to define) */
+    --color-accent-blue: #007aff;  /* General accent for links/misc */
+    --color-border-subtle: #eeeeee; /* Very light borders */
+    --color-chart-line: #007aff; /* Blue line for charts */
+    --color-chart-fill-start: rgba(0, 122, 255, 0.15); /* Light blue for chart fill */
+    --color-chart-fill-end: rgba(0, 122, 255, 0);     /* Transparent end for fade */
 
-    /* Fonts - Inter as a strong, versatile alternative to Public Sans */
+    /* Chart specific colors for the mini-bar chart (Screen Time inspired) */
+    --color-cat-productivity: #007AFF; /* Blue */
+    --color-cat-social: #FF9500;       /* Orange */
+    --color-cat-entertainment: #BF5AF2; /* Purple */
+    --color-cat-other: #5AC8FA;       /* Light Blue */
+
+    /* Fonts */
     --font-primary: 'Inter', sans-serif;
 
-    /* Spacing System */
-    --spacing-unit: 1rem; /* 16px */
-    --padding-section-sm: calc(var(--spacing-unit) * 2.5); /* 40px */
-    --padding-section-md: calc(var(--spacing-unit) * 4);   /* 64px */
-    --padding-section-lg: calc(var(--spacing-unit) * 6);   /* 96px */
+    /* Spacing */
+    --spacing-xs: 0.25rem; /* 4px */
+    --spacing-sm: 0.5rem;  /* 8px */
+    --spacing-md: 1rem;    /* 16px */
+    --spacing-lg: 1.5rem;  /* 24px */
+    --spacing-xl: 2rem;    /* 32px */
 
     /* Border Radius */
-    --radius-sm: 4px;
-    --radius-md: 8px;
-    --radius-lg: 12px;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 18px; /* Prominent rounded corners for cards */
 
-    /* Shadows */
-    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.1);
-    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.15);
+    /* Shadows (soft and diffuse) */
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
+    --shadow-card-hover: 0 2px 6px rgba(0, 0, 0, 0.08), 0 8px 20px rgba(0, 0, 0, 0.05);
 
     /* Transitions */
-    --transition-fast: 0.2s ease-in-out;
+    --transition-fast: 0.2s ease-out;
 }
 
 /* Base Reset & Box Sizing */
@@ -56,31 +65,30 @@
 
 html {
     scroll-behavior: smooth;
+    font-size: 16px; /* Base for rem units */
 }
 
 body {
     font-family: var(--font-primary);
-    line-height: 1.6;
-    color: var(--color-dark-gray);
-    background-color: var(--color-white);
+    line-height: 1.4; /* Tighter line-height for clean UI */
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-light);
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-size: 16px;
 }
 
-/* General Link & Button Styles */
+/* General Link & Button Styling */
 a {
-    color: var(--color-primary-blue);
+    color: var(--color-accent-blue);
     text-decoration: none;
     transition: color var(--transition-fast);
 }
-
 a:hover {
-    color: var(--color-link-hover);
-    text-decoration: underline;
+    color: var(--color-accent-blue);
+    text-decoration: underline; /* Subtle underline */
 }
 
 button {
@@ -91,642 +99,450 @@ button {
     font-family: inherit;
     font-size: inherit;
     padding: 0;
-    transition: all var(--transition-fast);
+    transition: opacity var(--transition-fast);
 }
-
 button:focus-visible {
-    outline: 2px solid var(--color-primary-blue);
+    outline: 2px solid var(--color-accent-blue);
     outline-offset: 2px;
+    border-radius: var(--radius-sm);
 }
 
 /* Utility Classes */
 .container {
-    max-width: 1200px;
+    max-width: 1000px; /* Adjusted for tighter, dashboard feel */
     margin: 0 auto;
-    padding: 0 var(--spacing-unit);
-}
-
-.sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border-width: 0;
-}
-
-.section-heading {
-    font-size: clamp(1.8rem, 3.5vw, 2.5rem);
-    text-align: center;
-    margin-bottom: var(--padding-section-sm);
-    color: var(--color-dark-gray);
-    font-weight: 700;
-}
-
-/* Headings */
-h1, h2, h3, h4, h5, h6 {
-    font-weight: 700;
-    color: var(--color-dark-gray);
-    line-height: 1.2;
-    margin-bottom: var(--spacing-unit);
-}
-h1 { font-size: clamp(2rem, 5vw, 3rem); }
-h2 { font-size: clamp(2.5rem, 6vw, 3.5rem); } /* Hero title scale up */
-h3 { font-size: clamp(1.8rem, 4vw, 2.5rem); }
-h4 { font-size: clamp(1.4rem, 3vw, 1.8rem); }
-p { margin-bottom: var(--spacing-unit); }
-
-
-/* Buttons for content sections (e.g. "View All Topics") */
-.link-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    font-weight: 500;
-    font-size: 1rem;
-    color: var(--color-primary-blue);
-    text-decoration: none;
-    transition: color var(--transition-fast), text-decoration var(--transition-fast);
-}
-.link-btn:hover {
-    color: var(--color-link-hover);
-    text-decoration: underline;
-}
-.link-btn svg {
-    width: 18px;
-    height: 18px;
-    vertical-align: middle;
-    stroke: currentColor;
-    stroke-width: 2;
-    fill: none;
+    padding: 0 var(--spacing-lg); /* Generous side padding */
 }
 
 /* --- Header --- */
-.site-header {
-    background-color: var(--color-white);
-    border-bottom: 1px solid var(--color-medium-gray);
-    padding: var(--spacing-unit) 0;
+.app-header {
+    background-color: var(--color-bg-card);
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-md) 0;
     box-shadow: var(--shadow-sm);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
+    z-index: 100;
 }
-
-.header-container {
+.header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap; /* Allow wrapping for mobile layout */
-    min-height: 60px; /* Baseline height */
 }
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: 800;
-    line-height: 1;
-    color: var(--color-dark-gray);
+.app-header h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0;
 }
-.logo a {
-    color: inherit;
-    text-decoration: none;
-}
-
-.main-nav .nav-list {
+.main-nav ul {
     list-style: none;
     display: flex;
-    gap: calc(var(--spacing-unit) * 1.5);
+    gap: var(--spacing-xl);
 }
-
-.main-nav .nav-list a {
-    font-size: 0.95rem;
+.main-nav a {
+    font-size: 0.9rem;
     font-weight: 600;
-    color: var(--color-dark-gray);
+    color: var(--color-text-primary);
     padding: var(--spacing-sm) 0;
     position: relative;
+    opacity: 0.7;
+    transition: opacity var(--transition-fast), color var(--transition-fast);
 }
-.main-nav .nav-list a::after {
+.main-nav a:hover {
+    opacity: 1;
+    color: var(--color-text-primary);
+    text-decoration: none;
+}
+.main-nav a.active {
+    opacity: 1;
+    color: var(--color-accent-blue); /* Active nav item color */
+}
+.main-nav a.active::after {
     content: '';
     position: absolute;
-    left: 0;
     bottom: 0;
-    width: 0;
-    height: 2px;
-    background-color: var(--color-primary-blue);
-    transition: width var(--transition-fast);
-}
-.main-nav .nav-list a:hover::after, .main-nav .nav-list a.active::after {
-    width: 100%;
-}
-.main-nav .nav-list a:hover {
-    color: var(--color-primary-blue);
-}
-
-.header-utility {
-    margin-left: auto; /* Push utility link to the right */
-}
-
-.utility-link {
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: var(--color-primary-blue);
-    padding: var(--spacing-sm) var(--spacing-unit);
-    border: 1px solid var(--color-primary-blue);
-    border-radius: var(--radius-sm);
-    transition: all var(--transition-fast);
-}
-.utility-link:hover {
-    background-color: var(--color-primary-blue);
-    color: var(--color-white);
-}
-
-/* Mobile Nav Toggle */
-.nav-toggle {
-    display: none; /* Hidden by default on desktop */
-    flex-direction: column;
-    justify-content: space-around;
-    width: 30px;
-    height: 20px;
-    cursor: pointer;
-    z-index: 1100; /* Above overlay */
-}
-.nav-toggle .bar {
+    left: 0;
     width: 100%;
     height: 2px;
-    background-color: var(--color-dark-gray);
-    transition: all var(--transition-fast);
+    background-color: var(--color-accent-blue);
+    border-radius: 1px;
 }
 
-/* --- Hero Search Section --- */
-.hero-search-section {
-    background-color: var(--color-primary-blue);
-    color: var(--color-white);
-    padding: var(--padding-section-lg) 0;
-    text-align: center;
-    /* Optional: background image similar to data.gov for more visual interest */
-    /* background-image: url('assets/images/banner-wave.svg'); */
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    overflow: hidden;
+/* --- Dashboard Grid & Cards --- */
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Default to single column for mobile */
+    gap: var(--spacing-xl); /* Generous gap between cards */
+    padding-top: var(--spacing-xl);
+    padding-bottom: var(--spacing-xl);
 }
 
-.hero-content {
-    max-width: 800px; /* Constrain content width */
-}
-
-.hero-title {
-    color: var(--color-white);
-    font-weight: 800;
-    margin-bottom: var(--spacing-unit);
-}
-
-.hero-subtitle {
-    font-size: 1.1rem;
-    line-height: 1.5;
-    opacity: 0.9;
-    margin-bottom: calc(var(--spacing-unit) * 2);
-}
-
-.search-form {
+.card {
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    padding: var(--spacing-lg);
     display: flex;
-    justify-content: center;
-    width: 100%;
+    flex-direction: column;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+.card:hover {
+    transform: translateY(-2px); /* Slight lift on hover */
+    box-shadow: var(--shadow-card-hover);
+}
+
+/* --- Stock-Style Chart Card (Large Card) --- */
+.large-card {
+    grid-column: 1 / -1; /* Spans full width on all sizes initially */
+    padding: var(--spacing-xl);
+}
+
+.stock-chart-card .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: var(--spacing-xl); /* Increased spacing for header to title */
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.stock-chart-card .main-metric-label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    color: var(--color-text-primary);
+    font-size: 1.3rem;
+}
+.stock-chart-card .main-metric-label.up {
+    color: var(--color-accent-green);
+}
+.stock-chart-card .main-metric-label .icon-arrow-up {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2;
+}
+
+.stock-chart-card .change-percent {
+    font-weight: 600;
+    color: var(--color-text-primary); /* Default for neutral */
+}
+.stock-chart-card .change-percent.up {
+    color: var(--color-accent-green);
+}
+
+.stock-chart-card .card-title h2 {
+    font-size: clamp(3rem, 7vw, 4.5rem); /* Very large number */
+    font-weight: 700;
+    line-height: 1;
+    color: var(--color-text-primary);
     margin-bottom: var(--spacing-lg);
 }
 
-.search-input-group {
-    display: flex;
-    width: 100%;
-    max-width: 600px;
-    border-radius: var(--radius-sm);
-    overflow: hidden; /* For sharp edges with input/button */
-    box-shadow: var(--shadow-md);
+.key-metrics-grid {
+    display: flex; /* Using flexbox for flexible spacing */
+    justify-content: space-around;
+    align-items: flex-end; /* Align labels at the bottom */
+    border-bottom: 1px solid var(--color-border-subtle);
+    padding-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-xl);
 }
 
-.search-input-group input[type="search"] {
-    flex-grow: 1;
-    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
-    border: none;
-    outline: none;
-    font-size: 1rem;
-    color: var(--color-dark-gray);
-    background-color: var(--color-white);
+.key-metrics-grid .metric-item {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0 var(--spacing-sm);
 }
-.search-input-group input[type="search"]::placeholder {
+.key-metrics-grid .metric-item .label {
+    font-size: 0.9rem;
     color: var(--color-text-secondary);
+    margin-bottom: var(--spacing-xs); /* Space between label and value */
 }
-.search-input-group input[type="search"]:focus {
-    box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5); /* White glow on focus */
-}
-
-.search-button {
-    background-color: var(--color-accent-sky); /* Lighter blue for button */
-    color: var(--color-white);
-    padding: var(--spacing-unit) calc(var(--spacing-unit) * 1.5);
-    font-size: 1rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    flex-shrink: 0; /* Prevent button from shrinking */
-}
-.search-button:hover {
-    background-color: var(--color-primary-blue-dark); /* Darker blue on hover */
-}
-.search-button svg {
-    width: 20px;
-    height: 20px;
-    stroke: currentColor;
-    stroke-width: 2;
-    fill: none;
-}
-
-.explore-link {
+.key-metrics-grid .metric-item .value {
     font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--color-white);
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-xs);
-    opacity: 0.9;
-    transition: opacity var(--transition-fast), text-decoration var(--transition-fast);
-}
-.explore-link:hover {
-    opacity: 1;
-    text-decoration: underline;
-}
-
-/* --- Data Highlights Section --- */
-.highlights-section {
-    background-color: var(--color-white);
-    padding: var(--padding-section-md) 0;
-}
-
-.highlight-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: var(--spacing-lg);
-    justify-content: center;
-    text-align: center;
-}
-
-.highlight-card {
-    background-color: var(--color-light-gray);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    transition: all var(--transition-fast);
-}
-.highlight-card:hover {
-    background-color: var(--color-medium-gray);
-    transform: translateY(-2px);
-}
-.highlight-number {
-    font-size: clamp(2rem, 5vw, 3rem);
-    font-weight: 800;
-    color: var(--color-primary-blue);
+    font-weight: 500;
+    color: var(--color-text-primary);
     line-height: 1;
-    margin-bottom: var(--spacing-xs);
-}
-.highlight-label {
-    font-size: 1.1rem;
-    font-weight: 500;
-    color: var(--color-dark-gray);
-    margin-bottom: 0;
 }
 
-/* --- Topics Section --- */
-.topics-section {
-    background-color: var(--color-light-gray);
-    padding: var(--padding-section-md) 0;
+/* SVG Chart Area */
+.chart-area {
+    width: 100%;
+    height: 200px; /* Fixed height for consistency */
+    position: relative;
+    overflow: hidden;
+    margin-bottom: var(--spacing-md);
 }
 
-.topic-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--spacing-md);
+.chart-svg {
+    width: 100%;
+    height: 100%;
 }
 
-.topic-card {
+.chart-svg .line-path {
+    fill: none;
+    stroke: var(--color-chart-line);
+    stroke-width: 2px;
+    transition: all 0.3s ease-out;
+}
+
+.chart-svg .chart-fill-area {
+    fill: url(#chartGradient); /* Use the defined gradient */
+}
+
+.chart-svg .grid-line-x, .chart-svg .grid-line-y {
+    stroke: var(--color-border-subtle);
+    stroke-width: 1px;
+    stroke-dasharray: 4 4; /* Dashed lines for subtle grid */
+}
+
+.chart-svg text {
+    font-family: var(--font-primary);
+    font-size: 12px;
+    fill: var(--color-text-secondary);
+}
+
+.chart-footer-labels {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--color-text-secondary);
+    padding: 0 var(--spacing-xs); /* align with chart margins */
+    border-top: 1px solid var(--color-border-subtle); /* A subtle line like in original */
+    padding-top: var(--spacing-xs);
+}
+
+
+/* --- Small Cards --- */
+.small-card {
+    padding: var(--spacing-lg);
+}
+
+/* Screen Time Style Card */
+.time-metric-card .card-header-icon {
+    display: flex;
     align-items: center;
-    background-color: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
-    text-align: center;
-    box-shadow: var(--shadow-sm);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-    text-decoration: none;
-    color: var(--color-dark-gray);
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
 }
-.topic-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-    color: var(--color-primary-blue); /* Text color on hover */
+.time-metric-card .emoji-icon {
+    font-size: 1.5rem; /* Emojis tend to be larger */
+    line-height: 1;
 }
-.topic-card .topic-icon {
-    width: 48px;
-    height: 48px;
-    margin-bottom: var(--spacing-unit);
-    stroke: var(--color-primary-blue); /* Icon color */
-    stroke-width: 1.5; /* Lighter stroke for icons */
-    fill: none;
-    transition: stroke var(--transition-fast);
-}
-.topic-card:hover .topic-icon {
-    stroke: var(--color-link-hover);
-}
-.topic-card h4 {
+.time-metric-card .card-title-text {
+    font-size: 1rem;
     font-weight: 600;
     margin-bottom: 0;
-    color: inherit; /* Inherit color from parent hover */
 }
-
-.topics-section .load-more-container {
-    margin-top: var(--padding-section-sm);
+.time-metric-card .time-main {
+    font-size: 2.2rem; /* Large time display */
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text-primary);
 }
-
-
-/* --- What's New & Upcoming Section --- */
-.whats-new-section {
-    background-color: var(--color-white);
-    padding: var(--padding-section-md) 0;
-}
-
-.news-grid {
+.breakdown-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: var(--spacing-xl);
+    grid-template-columns: 1fr;
+    gap: var(--spacing-sm);
 }
-
-.news-card {
-    background-color: var(--color-light-gray);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
+.breakdown-item {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between; /* Push 'Read More' to bottom if content varies */
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-.news-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-}
-.news-card .news-date {
-    font-size: 0.85rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-xs);
-    display: block;
-}
-.news-card h5 {
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-}
-.news-card p {
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: var(--spacing-xs);
+    border-bottom: 1px solid var(--color-border-subtle);
     font-size: 0.95rem;
-    color: var(--color-text-secondary);
-    margin-bottom: var(--spacing-unit);
-    flex-grow: 1; /* Ensures content fills space, pushing link down */
 }
-.news-card a {
+.breakdown-item:last-child {
+    border-bottom: none;
+}
+.breakdown-item .breakdown-label {
     font-weight: 500;
-    display: inline-block; /* Keep on its own line */
-    font-size: 0.95rem;
+    /* Category colors */
 }
-
-/* --- Tools & Resources Section --- */
-.tools-resources-section {
-    background-color: var(--color-light-gray);
-    padding: var(--padding-section-md) 0;
-}
-
-.tools-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: var(--spacing-xl);
-}
-.tool-card {
-    display: block;
-    background-color: var(--color-white);
-    padding: var(--spacing-lg);
-    border-radius: var(--radius-md);
-    box-shadow: var(--shadow-sm);
-    text-decoration: none;
-    color: var(--color-dark-gray);
-    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
-}
-.tool-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-md);
-}
-.tool-card .tool-icon {
-    width: 52px;
-    height: 52px;
-    margin-bottom: var(--spacing-unit);
-    stroke: var(--color-primary-blue);
-    stroke-width: 1.6;
-    fill: none;
-}
-.tool-card h4 {
-    font-weight: 600;
-    margin-bottom: var(--spacing-sm);
-}
-.tool-card p {
-    font-size: 0.95rem;
+.breakdown-item .breakdown-value {
     color: var(--color-text-secondary);
+}
+.category-productivity { color: var(--color-cat-productivity); }
+.category-social { color: var(--color-cat-social); }
+.category-entertainment { color: var(--color-cat-entertainment); }
+
+
+/* Mini Bar Chart Card (Energy Usage inspired) */
+.usage-metric-card .card-header-icon {
+     display: flex;
+     align-items: center;
+     gap: var(--spacing-sm);
+     margin-bottom: var(--spacing-md);
+}
+.usage-metric-card .emoji-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.usage-metric-card .card-title-text {
+    font-size: 1rem;
+    font-weight: 600;
     margin-bottom: 0;
 }
-.tools-resources-section .load-more-container {
-    margin-top: var(--padding-section-sm);
+.usage-metric-card .energy-main {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text-primary);
+}
+.mini-bar-chart rect {
+    fill: var(--color-accent-blue);
+    transition: fill var(--transition-fast);
+}
+.mini-bar-chart rect:hover {
+    fill: var(--color-primary-blue-dark);
+}
+.energy-details {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--spacing-sm);
+    margin-top: var(--spacing-md); /* Space below chart */
+}
+.change-status.up { color: var(--color-accent-green); }
+.change-status.down { color: var(--color-accent-red); }
+
+
+/* Project Progress Card */
+.project-progress-card .card-header-icon {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+.project-progress-card .emoji-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.project-progress-card .card-title-text {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+.project-progress-card .project-main {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--spacing-md);
+    color: var(--color-text-primary);
+}
+.progress-bar-container {
+    width: 100%;
+    height: 8px;
+    background-color: var(--color-border-subtle);
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    margin-bottom: var(--spacing-sm);
+}
+.progress-bar {
+    height: 100%;
+    background-color: var(--color-accent-green);
+    border-radius: var(--radius-sm);
+    transition: width 0.5s ease-out; /* For progress animation */
+}
+.progress-label {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--color-text-primary);
+    margin-bottom: var(--spacing-md);
+    display: block; /* Ensures it's on its own line */
+}
+.task-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--spacing-sm);
+}
+
+/* Sales Metrics Card */
+.sales-metrics-card .card-header-icon {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-md);
+}
+.sales-metrics-card .emoji-icon {
+    font-size: 1.5rem;
+    line-height: 1;
+}
+.sales-metrics-card .card-title-text {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 0;
+}
+.sales-metrics-card .sales-main {
+    font-size: 2.2rem;
+    font-weight: 700;
+    line-height: 1;
+    margin-bottom: var(--spacing-lg);
+    color: var(--color-text-primary);
+}
+.mini-line-chart polyline {
+    fill: none;
+    stroke: var(--color-accent-green);
+    stroke-width: 2px;
+}
+.sales-comparison {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    color: var(--color-text-secondary);
+    border-top: 1px solid var(--color-border-subtle);
+    padding-top: var(--spacing-sm);
+    margin-top: var(--spacing-md);
 }
 
 
 /* --- Footer --- */
-.site-footer {
-    background-color: var(--color-dark-gray);
-    color: var(--color-white);
-    padding: calc(var(--spacing-unit) * 3) 0 var(--spacing-unit) 0;
-    margin-top: auto;
-    font-size: 0.9rem;
+.app-footer {
+    background-color: var(--color-bg-card);
+    border-top: 1px solid var(--color-border-subtle);
+    padding: var(--spacing-md) 0;
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--color-text-secondary);
+    margin-top: auto; /* Pushes footer to the bottom */
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.03);
 }
-
-.footer-primary {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--spacing-xl);
-    padding-bottom: calc(var(--spacing-unit) * 2);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    margin-bottom: var(--spacing-unit);
-}
-
-.footer-section h5 {
-    color: var(--color-white);
-    font-size: 1rem;
-    margin-bottom: var(--spacing-unit);
-}
-.footer-section p {
-    color: rgba(255, 255, 255, 0.7);
-    line-height: 1.4;
-    margin-bottom: var(--spacing-unit);
-}
-.footer-section ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-.footer-section li {
-    margin-bottom: var(--spacing-sm);
-}
-.footer-section a {
-    color: rgba(255, 255, 255, 0.7);
-    transition: color var(--transition-fast);
-}
-.footer-section a:hover {
-    color: var(--color-white);
-}
-
-.footer-secondary {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: var(--spacing-unit);
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.5);
-}
-.footer-secondary p {
-    margin-bottom: var(--spacing-xs); /* Reduced margin */
-}
-
-.footer-secondary .social-links a {
-    margin-left: var(--spacing-unit);
-    color: rgba(255, 255, 255, 0.7);
-    transition: color var(--transition-fast);
-}
-.footer-secondary .social-links a:hover {
-    color: var(--color-white);
-}
-
 
 /* --- Responsive Adjustments --- */
-@media (max-width: 992px) { /* Adjust for tablet-ish */
-    .header-container {
-        justify-content: space-between;
+@media (min-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr); /* Two columns for tablets */
     }
-    .main-nav {
-        order: 3; /* Move navigation below logo/utility */
-        flex-basis: 100%; /* Take full width */
-        margin-top: var(--spacing-unit);
-    }
-    .main-nav .nav-list {
-        justify-content: center; /* Center the nav items when wrapped */
-    }
-    .header-utility {
-        margin-left: 0; /* Reset margin push */
-        order: 2; /* Put utility button next to toggle for better layout */
-        flex-shrink: 0;
-    }
-    .logo {
-        flex-grow: 1; /* Allow logo to take space */
+    .large-card {
+        grid-column: 1 / -1; /* Main card still spans full width */
     }
 }
 
-@media (max-width: 768px) { /* Mobile specific */
-    .nav-toggle {
-        display: flex; /* Show hamburger icon */
-        order: 2; /* Place toggle after logo, before utility */
-        margin-left: var(--spacing-unit); /* Space from logo */
-    }
-    .header-utility {
-        margin-left: auto; /* Push sign-in button to the very right */
-    }
-    .main-nav .nav-list {
-        display: none; /* Hide by default for mobile overlay */
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: var(--color-white);
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: var(--spacing-lg);
-        z-index: 999;
-        transform: translateX(100%); /* Start off-screen */
-        transition: transform var(--transition-fast);
-        box-shadow: var(--shadow-md);
-    }
-    .main-nav.active .nav-list {
-        transform: translateX(0); /* Slide in */
-        display: flex; /* Show the overlay */
-    }
-    .main-nav .nav-list li {
-        width: 100%;
-        text-align: center;
-    }
-    .main-nav .nav-list a {
-        font-size: 1.5rem;
-        color: var(--color-dark-gray);
-        display: block;
-        padding: var(--spacing-unit) 0;
-    }
-    .main-nav .nav-list a:hover {
-        background-color: var(--color-light-gray);
-    }
-    .main-nav.active .nav-toggle.active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
-    .main-nav.active .nav-toggle.active .bar:nth-child(2) { opacity: 0; }
-    .main-nav.active .nav-toggle.active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
-
-
-    /* Hero Section adjustments */
-    .hero-search-section {
-        padding: var(--padding-section-md) var(--spacing-unit);
-    }
-    .search-input-group {
-        flex-direction: column; /* Stack input and button vertically */
-    }
-    .search-input-group input[type="search"] {
-        border-radius: var(--radius-sm) var(--radius-sm) 0 0; /* Rounded top only */
-    }
-    .search-button {
-        width: 100%;
-        border-radius: 0 0 var(--radius-sm) var(--radius-sm); /* Rounded bottom only */
+@media (min-width: 1024px) {
+    .dashboard-grid {
+        grid-template-columns: 2fr 1fr 1fr; /* Custom grid for desktop */
+        grid-template-areas:
+            "main-chart main-chart main-chart"
+            "time-card usage-card project-card"; /* Define areas for easier placement */
     }
 
-    /* Grid layout for cards become single column or adapt better */
-    .footer-primary {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-    .footer-section h5 {
-        margin-top: var(--spacing-xl); /* Add spacing between sections */
-    }
-    .footer-section:first-child h5 {
-        margin-top: 0;
-    }
-    .footer-secondary {
-        flex-direction: column;
-        gap: var(--spacing-unit);
-    }
-    .footer-secondary p, .footer-secondary .social-links {
-        text-align: center;
-        width: 100%;
-    }
-    .footer-secondary .social-links a {
-        margin: 0 var(--spacing-sm); /* Adjust social link spacing */
-    }
+    .large-card.stock-chart-card { grid-area: main-chart; }
+    .small-card.time-metric-card { grid-area: time-card; }
+    .small-card.usage-metric-card { grid-area: usage-card; }
+    .small-card.project-progress-card { grid-area: project-card; }
 
-    body.no-scroll { /* Added by JS when nav is open */
-        overflow: hidden;
-    }
-}
-
-@media (max-width: 480px) {
-    /* Further adjustments for very small screens if needed */
+    /* For extra cards, you'd add more grid-template-areas and new grid-areas here */
+    /* Example: sales-metrics-card doesn't have a grid-area yet for the 3-col layout, it'll just fill next available. */
+    /* You could refine grid-template-areas to control precise placement */
+    /* "main-chart main-chart main-chart"
+       "time-card usage-card sales-card"
+       "project-card ." */
+    /* etc. */
 }
